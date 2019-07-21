@@ -25,6 +25,7 @@ public class TheatreController implements ErrorController {
 
     @RequestMapping(ERROR_PATH)
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public Response handleError() {
         return new Response.Builder("").responseStatus(HttpStatus.NOT_FOUND).message(notFount).build();
     }
@@ -32,12 +33,14 @@ public class TheatreController implements ErrorController {
 
     @RequestMapping(value = "theatres", method = RequestMethod.GET )
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     private Response getTheatres() {
         return new Response.Builder(theatreService.findAllTheatres()).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
     @RequestMapping(value = "theatres/{theatreId}", method = RequestMethod.GET )
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     private Response getTheatreById(@PathVariable("theatreId") int id) {
         OutputTheatre outputTheatre = theatreService.findTheatreById(id);
         if (outputTheatre == null) {
@@ -48,24 +51,28 @@ public class TheatreController implements ErrorController {
 
     @RequestMapping(value = "theatres/{theatreId}/movies", method = RequestMethod.GET )
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     private Response getAllMovies(@PathVariable("theatreId") int id) {
         return new Response.Builder(theatreService.findAllMovies(id)).responseStatus(HttpStatus.OK).message("Success").build();
     }
 
     @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}", method = RequestMethod.GET )
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     private Response getMovieById(@PathVariable("theatreId") int theatreId, @PathVariable("movieId") int movieId) {
         return new Response.Builder(theatreService.findMovieById(theatreId, movieId)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
     @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}/seats", method = RequestMethod.GET )
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     private Response getSeats(@PathVariable("theatreId") int theatreId, @PathVariable("movieId") int movieId) {
         return new Response.Builder(theatreService.findSeats(theatreId, movieId)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
     @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}/book-a-seat", method = RequestMethod.POST)
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public Response bookATicket(@PathVariable("theatreId") int theatreId, @PathVariable("movieId") int movieId, @RequestBody Seat seat) {
         Booking booking = bookingService.bookASeat(theatreId, movieId, seat);
         if (booking != null) {
@@ -76,6 +83,7 @@ public class TheatreController implements ErrorController {
 
     @RequestMapping(value = "theatres/{theatreId}/pay-booking", method = RequestMethod.POST)
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public Response payForBooking(@PathVariable("theatreId") int theatreId, @RequestBody Payment paymentDetails) {
         boolean result = bookingService.payForBooking(theatreId, paymentDetails.getBookingID(), paymentDetails);
         if (result) {
@@ -86,12 +94,14 @@ public class TheatreController implements ErrorController {
 
     @RequestMapping(value = "theatres/{theatreId}/bookings", method = RequestMethod.GET )
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     private Response getAllBooking(@PathVariable("theatreId") int id) {
         return new Response.Builder(theatreService.findAllBookings(id)).responseStatus(HttpStatus.OK).message("Success").build();
     }
 
     @RequestMapping(value = "theatres/{theatreId}/cancel-booking/{bookingId}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
     public Response deleteBooking(@PathVariable("theatreId") int theatreId, @PathVariable("bookingId") String bookingId) {
         boolean result = bookingService.deleteBooking(theatreId, bookingId);
         if (result) {
