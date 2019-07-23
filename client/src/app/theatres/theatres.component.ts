@@ -17,26 +17,27 @@ export class TheatresComponent implements OnInit {
 
   ngOnInit() {
     this.theatreService.getAll().subscribe(data => {
-      this.theatres = data["responseBody"];
-      console.log(this.theatres)
-    })
+      this.theatres = data['responseBody'];
+      console.log(data);
+      console.log(this.theatres);
+    });
   }
 
   getMovies(theatreId) {
     this.theatreId = theatreId;
     this.theatreService.getTheatreMoviesById(theatreId).subscribe(data => {
-      this.theatresMovies = data["responseBody"];
-      console.log(this.theatresMovies)
-    })
+      this.theatresMovies = data.responseBody;
+      console.log(this.theatresMovies);
+    });
   }
 
   chooseSeats(movieId) {
-    this._router.navigate(["/seats"], {
+    this._router.navigate(['/seats'], {
       queryParams: {
         id: this.theatreId,
         movie: movieId
       }
-    })
+    });
   }
 
 }
