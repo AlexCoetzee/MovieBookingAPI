@@ -1,5 +1,6 @@
 package com.movie.api.controller;
 
+import com.movie.api.model.Booking;
 import com.movie.api.response.Response;
 import com.movie.api.service.CinemaService;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 //Get All screenings
 //Get screening by id
 //get seat_reservation by screening
+
+//book a seat
+//delete a reservation
 @RestController
 public class MovieController implements ErrorController {
     private static final String ERROR_PATH = "/error";
@@ -106,6 +110,12 @@ public class MovieController implements ErrorController {
         return new Response.Builder(cinemaService.findReservationById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
+    @RequestMapping(value = "reservations/{reservationId}/delete-booking", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:8080")
+    private Response deleteBooking(@PathVariable("reservationId") String id) {
+        return new Response.Builder(cinemaService.deleteBooking(Integer.valueOf(id))).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
 
     //SCREENING CONTROLLER FUNCTIONALITY
     @RequestMapping(value = "screenings", method = RequestMethod.GET )
@@ -128,6 +138,19 @@ public class MovieController implements ErrorController {
     private Response getReservationsByScreening(@PathVariable("screeningId") String id) {
         return new Response.Builder(cinemaService.findReservationByScreening(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
+
+
+    @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}/book-a-seat", method = RequestMethod.POST)
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:8080")
+    public Response bookATicket(@RequestBody Booking reservation) {
+        int seatAvailableId = cinemaService.bookSeat(reservation.getSeatId(),reservation.getScreeningId(),reservation.getName(),reservation.getSeatId());
+        if (seatAvailableId>=1) {
+            return new Response.Builder(seatAvailableId).responseStatus(HttpStatus.CREATED).message("SUCCESS").build();
+        }
+        return new Response.Builder("").responseStatus(HttpStatus.CONFLICT).message("SEAT UNAVAILABLE").build();
+    }
+
 
 //    @RequestMapping(value = "theatres/{theatreId}/movies", method = RequestMethod.GET )
 //    @ResponseBody

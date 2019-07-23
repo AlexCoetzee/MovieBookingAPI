@@ -1,33 +1,18 @@
 package com.movie.api.model;
 
+import lombok.Getter;
+
+@Getter
 public class Booking {
 
-    private String bookingID;
-    private Seat seat;
-    private int theatreID;
-    private int movieID;
-    private int price;
+    private int seatId;
+    private int screeningId;
+    private String name;
 
 
-    public Booking(String bookingID,  int theatreid, int movieid, Seat seat) {
-        this.bookingID = bookingID;
-        this.movieID = movieid;
-        this.theatreID = theatreid;
-        this.seat = seat;
-        this.price = 90;
+    public Booking( int seat, int screeningId, String name) {
+        this.seatId = seat;
+        this.screeningId = screeningId;
+        this.name = name;
     }
-
-    public String getBookingID() {
-        return bookingID;
-    }
-
-    public Seat getSeat() {
-        return seat;
-    }
-
-    public int getMovieID() { return movieID; }
-
-    public int getTheatreID() { return theatreID; }
-
-    public int getPrice() { return price; }
 }

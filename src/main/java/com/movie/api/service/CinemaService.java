@@ -1,7 +1,6 @@
 package com.movie.api.service;
 
 import com.movie.api.db.Database;
-import com.movie.api.db.MovieDB;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +54,20 @@ public class CinemaService {
 
     public ArrayList<HashMap<String, String>> findSeatByCinema(String id) {
         return Database.findSeatByCinema( id );
+    }
+
+    public boolean deleteBooking(int id) {
+        Database.deleteBooking(id);
+        return true;
+    }
+
+
+    public int bookSeat(int id, int screening, String reservationName, int seatId) {
+        if (!Database.checkSeatOccupied(id)) {
+            int seatReservationId =Database.bookSeat(screening, reservationName, seatId);
+            return seatReservationId;
+        }
+        return -1;
     }
 
 }
