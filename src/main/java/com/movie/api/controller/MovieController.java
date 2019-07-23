@@ -1,14 +1,15 @@
 package com.movie.api.controller;
 
 import com.movie.api.response.Response;
-import com.movie.api.service.BookingService;
 import com.movie.api.service.CinemaService;
-import com.movie.api.service.TheatreService;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
+/////TO CLARIFY A CONFUSION, A THEATRE WOULD EQUIVALENT TO A MOVIE HOUSE,
+// WHILE A CINEMA IS AN INDIVIDUAL ROOM. THIS WILL BE REFACTORED
+//Get All Theatres
+//Get Theatre by id
 //Get All Cinemas
 //Get Cinema by id
 //Get all seats per cinema
@@ -24,8 +25,6 @@ public class MovieController implements ErrorController {
     private static final String ERROR_PATH = "/error";
     private String notFound = "The URL provided does not identify any resource";
     private CinemaService cinemaService = new CinemaService();
-    private TheatreService theatreService = new TheatreService();
-    private BookingService bookingService = new BookingService();
 
     @Override
     public String getErrorPath() {
@@ -38,6 +37,22 @@ public class MovieController implements ErrorController {
     public Response handleError() {
         return new Response.Builder("").responseStatus(HttpStatus.NOT_FOUND).message(notFound).build();
     }
+
+    //Theatre CONTROLLER
+    @RequestMapping(value = "theatre", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:8080")
+    private Response getAllTheatres() {
+        return new Response.Builder(cinemaService.findAllTheatre()).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    @RequestMapping(value = "theatre/{theatreId}", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:8080")
+    private Response getTheatreById(@PathVariable("theatreId") String id) {
+        return new Response.Builder(cinemaService.findTheatreById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
 
     //CINEMA CONTROLLER
     @RequestMapping(value = "cinemas", method = RequestMethod.GET )

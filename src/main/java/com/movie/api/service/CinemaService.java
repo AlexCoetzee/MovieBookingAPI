@@ -17,6 +17,14 @@ public class CinemaService {
         return Database.selectById("cinema", id );
     }
 
+    public ArrayList<HashMap<String, String>> findAllTheatre() {
+        return Database.selectAll("theatre");
+    }
+
+    public ArrayList<HashMap<String, String>> findTheatreById(String id) {
+        return Database.selectById("theatre", id );
+    }
+
     public ArrayList<HashMap<String, String>> findAllMovies() {
         return Database.selectAll("movies");
     }

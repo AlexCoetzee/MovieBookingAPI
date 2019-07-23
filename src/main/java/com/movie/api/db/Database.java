@@ -39,12 +39,13 @@ public class Database {
 
     public static void createTables() {
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS movies (Id Integer PRIMARY KEY, movieName varchar(50) NOT NULL, movieDescription varchar(100) )";
+        String sql = "CREATE TABLE IF NOT EXISTS movie (Id Integer PRIMARY KEY, movieName varchar(50) NOT NULL, movieDescription varchar(100) )";
         String sql2 = "CREATE TABLE IF NOT EXISTS cinema (Id Integer PRIMARY KEY, name varchar(50) NOT NULL, seatCount Integer NOT NULL )";
-        String sql3 = "CREATE TABLE IF NOT EXISTS screening (Id Integer PRIMARY KEY, movie Integer NOT NULL, time TimeStamp NOT NULL, cinema Integer, FOREIGN KEY(movie) REFERENCES movie(Id), FOREIGN KEY(cinema) REFERENCES cinema(Id) )";
+        String sql3 = "CREATE TABLE IF NOT EXISTS screening (Id Integer PRIMARY KEY, movie Integer NOT NULL, time TimeStamp NOT NULL, theatre Integer NOT NULL, cinema Integer, FOREIGN KEY(movie) REFERENCES movie(Id), FOREIGN KEY(cinema) REFERENCES cinema(Id), FOREIGN KEY(theatre) REFERENCES cinema(Id) )";
         String sql4 = "CREATE TABLE IF NOT EXISTS reservation (Id Integer PRIMARY KEY, screening Integer NOT NULL, name varchar(50), FOREIGN KEY(screening) REFERENCES screening(Id) )";
         String sql5 = "CREATE TABLE IF NOT EXISTS seat_reservation (Id Integer PRIMARY KEY, seat Integer NOT NULL, reservation Integer NOT NULL, screening Integer NOT NULL, FOREIGN KEY(seat) REFERENCES seat(Id), FOREIGN KEY(reservation) REFERENCES reservation(Id), FOREIGN KEY(screening) REFERENCES screening(Id) )";
         String sql6 = "CREATE TABLE IF NOT EXISTS seat (Id Integer PRIMARY KEY, row Integer NOT NULL, number Integer NOT NULL, cinema Integer NOT NULL, FOREIGN KEY(cinema) REFERENCES cinema(Id) )";
+        String sql7 = "CREATE TABLE IF NOT EXISTS theatre (Id Integer PRIMARY KEY, name varchar(50) NOT NULL, Location varchar(100) NOT NULL)";
 
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
@@ -55,13 +56,14 @@ public class Database {
             stmt.execute(sql4);
             stmt.execute(sql5);
             stmt.execute(sql6);
+            stmt.execute(sql7);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public static void insertMovie(String name, String description) {
-        String sql = "INSERT INTO movies(movieName,movieDescription) VALUES(?,?)";
+        String sql = "INSERT INTO movie(movieName,movieDescription) VALUES(?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -84,6 +86,18 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+    public static void insertTheatre(String name, String location) {
+        String sql = "INSERT INTO theatre(name,location) VALUES(?,?)";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, location);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     public static void insertReservation( int screening, String name) {
         String sql = "INSERT INTO reservation(screening, name) VALUES(?,?)";
 
@@ -96,14 +110,15 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-    public static void insertScreening(int movie, Timestamp time, int cinema) {
-        String sql = "INSERT INTO screening(movie, time, cinema) VALUES(?,?,?)";
+    public static void insertScreening(int movie, Timestamp time, int theatre, int cinema) {
+        String sql = "INSERT INTO screening(movie, time, theatre ,cinema) VALUES(?,?,?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, movie);
             pstmt.setTimestamp(2, time);
-            pstmt.setInt(3, cinema);
+            pstmt.setInt(3, theatre);
+            pstmt.setInt(4, cinema);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
