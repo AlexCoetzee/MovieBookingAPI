@@ -325,6 +325,31 @@ public class Database {
         }
         return rows.size() == 1 ? true : false;
     }
+    public static ArrayList<HashMap<String, String>> findMovieByTheatre(String id){
+        String sql = "SELECT movie FROM screening WHERE cinema in (SELECT Id from cinema WHERE theatre = " + id + " )";
+        ArrayList<HashMap<String, String>> rows = new ArrayList<HashMap<String, String>>();
+        // HashMap<String, String> resultSet = new HashMap<String, String>();
+
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            // loop through the result set
+            while (rs.next()) {
+                HashMap<String, String> resultSet = new HashMap<String, String>();
+
+                for(int i = 1; i<= rsmd.getColumnCount(); i++) {
+                    String column = rs.getString(i);
+                    resultSet.put(rsmd.getColumnName(i),column);
+                }
+                rows.add(resultSet);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return rows;
+    }
 
     public static int bookSeat(int screening,String name,int seatId) {
         try {
@@ -349,5 +374,7 @@ public class Database {
 
         }
     }
+
+
 
 }

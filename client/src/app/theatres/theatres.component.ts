@@ -18,15 +18,16 @@ export class TheatresComponent implements OnInit {
   ngOnInit() {
     this.theatreService.getAll().subscribe(data => {
       this.theatres = data['responseBody'];
-      console.log(data);
       console.log(this.theatres);
     });
   }
 
   getMovies(theatreId) {
     this.theatreId = theatreId;
+    console.log(this.theatreId);
     this.theatreService.getTheatreMoviesById(theatreId).subscribe(data => {
-      this.theatresMovies = data.responseBody;
+      this.theatresMovies = data['responseBody'];
+      console.log(data);
       console.log(this.theatresMovies);
     });
   }

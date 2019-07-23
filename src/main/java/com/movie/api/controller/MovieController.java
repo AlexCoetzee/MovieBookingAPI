@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 // WHILE A CINEMA IS AN INDIVIDUAL ROOM. THIS WILL BE REFACTORED
 //Get All Theatres
 //Get Theatre by id
+//Get movies by theatres
 //Get All Cinemas
 //Get Cinema by id
 //Get all seats per cinema
@@ -55,6 +56,13 @@ public class MovieController implements ErrorController {
     @CrossOrigin(origins = "http://localhost:4200")
     private Response getTheatreById(@PathVariable("theatreId") String id) {
         return new Response.Builder(cinemaService.findTheatreById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    @RequestMapping(value = "theatres/{theatreId}/movies", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response getMoviesByTheatre(@PathVariable("theatreId") String id) {
+        return new Response.Builder(cinemaService.getMoviesByTheatre(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
 
