@@ -8,6 +8,17 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+
+//Get All Cinemas
+//Get Cinema by id
+//Get all seats per cinema
+//Get All movies
+//Get movie by id
+//Get All Reservation
+//Get reservation by Id
+//Get All screenings
+//Get screening by id
+//get seat_reservation by screening
 @RestController
 public class MovieController implements ErrorController {
     private static final String ERROR_PATH = "/error";
@@ -28,7 +39,7 @@ public class MovieController implements ErrorController {
         return new Response.Builder("").responseStatus(HttpStatus.NOT_FOUND).message(notFound).build();
     }
 
-
+    //CINEMA CONTROLLER
     @RequestMapping(value = "cinemas", method = RequestMethod.GET )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:8080")
@@ -39,8 +50,45 @@ public class MovieController implements ErrorController {
     @RequestMapping(value = "cinemas/{cinemaId}", method = RequestMethod.GET )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:8080")
-    private Response getTheatreById(@PathVariable("cinemaId") String id) {
+    private Response getMovieById(@PathVariable("cinemaId") String id) {
         return new Response.Builder(cinemaService.findCinemaById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    @RequestMapping(value = "cinemas/{cinemaId}/seats", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:8080")
+    private Response getSeatByCinema(@PathVariable("cinemaId") String id) {
+        return new Response.Builder(cinemaService.findSeatByCinema(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    //MOVIE CONTROLLER
+    @RequestMapping(value = "movies", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:8080")
+    private Response getAllMovies() {
+        return new Response.Builder(cinemaService.findAllMovies()).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    @RequestMapping(value = "movies/{movieId}", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:8080")
+    private Response getMoviesById(@PathVariable("movieId") String id) {
+        return new Response.Builder(cinemaService.findMovieById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    //RESERVATION CONTROLLER
+    @RequestMapping(value = "reservations", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:8080")
+    private Response getAllReservations() {
+        return new Response.Builder(cinemaService.findAllReservations()).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    @RequestMapping(value = "reservations/{reservationId}", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:8080")
+    private Response getReservationById(@PathVariable("reservationId") String id) {
+        return new Response.Builder(cinemaService.findReservationById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
 
@@ -59,7 +107,7 @@ public class MovieController implements ErrorController {
         return new Response.Builder(cinemaService.findScreeningById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
-    @RequestMapping(value = "screenings/{screeningId}/reservations", method = RequestMethod.GET )
+    @RequestMapping(value = "screenings/{screeningId}/seat_reservations", method = RequestMethod.GET )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:8080")
     private Response getReservationsByScreening(@PathVariable("screeningId") String id) {

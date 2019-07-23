@@ -17,6 +17,22 @@ public class CinemaService {
         return Database.selectById("cinema", id );
     }
 
+    public ArrayList<HashMap<String, String>> findAllMovies() {
+        return Database.selectAll("movies");
+    }
+
+    public ArrayList<HashMap<String, String>> findMovieById(String id) {
+        return Database.selectById("movies", id );
+    }
+
+    public ArrayList<HashMap<String, String>> findAllReservations() {
+        return Database.selectAll("reservation");
+    }
+
+    public ArrayList<HashMap<String, String>> findReservationById(String id) {
+        return Database.selectById("reservation", id );
+    }
+
     public ArrayList<HashMap<String, String>> findAllScreenings() {
         return Database.selectAll("screening");
     }
@@ -27,6 +43,10 @@ public class CinemaService {
 
     public ArrayList<HashMap<String, String>> findReservationByScreening(String id) {
         return Database.getReservationsByScreening( id );
+    }
+
+    public ArrayList<HashMap<String, String>> findSeatByCinema(String id) {
+        return Database.findSeatByCinema( id );
     }
 
 }

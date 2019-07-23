@@ -189,7 +189,33 @@ public class Database {
     }
 
     public static ArrayList<HashMap<String, String>> getReservationsByScreening(String id){
-        String sql = "SELECT * FROM reservation WHERE screening = " + id;
+        String sql = "SELECT * FROM seat_reservation WHERE screening = " + id;
+        ArrayList<HashMap<String, String>> rows = new ArrayList<HashMap<String, String>>();
+        // HashMap<String, String> resultSet = new HashMap<String, String>();
+
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            // loop through the result set
+            while (rs.next()) {
+                HashMap<String, String> resultSet = new HashMap<String, String>();
+
+                for(int i = 1; i<= rsmd.getColumnCount(); i++) {
+                    String column = rs.getString(i);
+                    resultSet.put(rsmd.getColumnName(i),column);
+                }
+                rows.add(resultSet);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return rows;
+    }
+
+    public static ArrayList<HashMap<String, String>> findSeatByCinema(String id){
+        String sql = "SELECT * FROM seat WHERE cinema = " + id;
         ArrayList<HashMap<String, String>> rows = new ArrayList<HashMap<String, String>>();
         // HashMap<String, String> resultSet = new HashMap<String, String>();
 
