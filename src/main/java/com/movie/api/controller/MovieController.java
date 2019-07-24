@@ -81,7 +81,7 @@ public class MovieController implements ErrorController {
     private Response getCinemaById(@PathVariable("cinemaId") String id) {
         return new Response.Builder(cinemaService.findCinemaById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
-    @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}/seats", method = RequestMethod.GET )
+    @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}/cinema", method = RequestMethod.GET )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
     private Response getCinemaByMovieAndTheatre(@PathVariable("theatreId") int idTheatre, @PathVariable("movieId") int idMovie) {
@@ -93,6 +93,13 @@ public class MovieController implements ErrorController {
     @CrossOrigin(origins = "http://localhost:4200")
     private Response getSeatByCinema(@PathVariable("cinemaId") String id) {
         return new Response.Builder(cinemaService.findSeatByCinema(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    @RequestMapping(value = "cinemas/{cinemaId}/occupiedSeats", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response getOccupiedSeatByCinema(@PathVariable("cinemaId") int id) {
+        return new Response.Builder(cinemaService.getOccupiedSeats(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
     //MOVIE CONTROLLER

@@ -19,6 +19,12 @@ export class TheatreService {
   }
 
   getTheatreSeatsByIdAndMovie(id, movieId): Observable<any> {
-    return this.http.get('http://localhost:8080/theatres/' + id + '/movies/' + movieId + '/seats');
+    return this.http.get('http://localhost:8080/theatres/' + id + '/movies/' + movieId + '/cinema');
+  }
+  getSeatByCinema(id): Observable<any> {
+    return this.http.get('http://localhost:8080/cinemas/' + id + '/seats');
+  }
+  getOccupiedSeatByCinema(id): Observable<any> {
+    return this.http.get('http://localhost:8080/cinemas/' + id + '/occupiedSeats');
   }
 }

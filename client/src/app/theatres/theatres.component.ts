@@ -33,12 +33,13 @@ export class TheatresComponent implements OnInit {
   }
 
   chooseSeats(movieId) {
-    this._router.navigate(['/seats'], {
+    this._router.navigate(['/seats/'], {
       queryParams: {
         id: this.theatreId,
         movie: movieId
       }
     });
+    // this._router.navigateByUrl();
   }
 
 }

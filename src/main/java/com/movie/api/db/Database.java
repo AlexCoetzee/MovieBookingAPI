@@ -386,7 +386,7 @@ public class Database {
     }
 
     public static ArrayList<HashMap<String, String>> getCinemaByMovieAndTheatre(int movieId, int theatreId) {
-        String sql = "SELECT * FROM seat WHERE cinema in  (SELECT distinct cinema FROM screening WHERE cinema in (SELECT Id from cinema WHERE theatre = " + theatreId + " ) And movie = " + movieId + ")";
+        String sql = "SELECT distinct cinema FROM screening WHERE cinema in (SELECT Id from cinema WHERE theatre = " + theatreId + " ) And movie = " + movieId ;
         ArrayList<HashMap<String, String>> rows = new ArrayList<HashMap<String, String>>();
         // HashMap<String, String> resultSet = new HashMap<String, String>();
 
