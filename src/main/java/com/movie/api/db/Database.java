@@ -79,6 +79,7 @@ public class Database {
         }
         return -1;
     }
+
     public static int insertCinema(String name, int seatCount, int theatre ) {
         String sql = "INSERT INTO cinema(name,seatCount, theatre) VALUES(?,?,?)";
 
@@ -97,6 +98,7 @@ public class Database {
         }
         return -1;
     }
+
     public static int insertTheatre(String name, String location) {
         String sql = "INSERT INTO theatre(name,location) VALUES(?,?)";
 
@@ -114,6 +116,7 @@ public class Database {
         }
         return -1;
     }
+
     public static int insertReservation( int screening, String name) {
         String sql = "INSERT INTO reservation(screening, name) VALUES(?,?)";
         try (Connection conn = connect();
@@ -130,6 +133,7 @@ public class Database {
         }
         return -1;
     }
+
     public static int insertScreening(int movie, Timestamp time, int cinema) {
         String sql = "INSERT INTO screening(movie, time,cinema) VALUES(?,?,?)";
 
@@ -148,6 +152,7 @@ public class Database {
         }
         return -1;
     }
+
     public static int insertSeat(int row, int number, int cinema) {
         String sql = "INSERT INTO seat(row,number, cinema) VALUES(?,?,?)";
 
@@ -166,6 +171,7 @@ public class Database {
         }
         return -1;
     }
+
     public static int insertSeatReservation(int seat, int reservation, int screening) {
         String sql = "INSERT INTO seat_reservation(seat, reservation, screening) VALUES(?,?,?)";
 
@@ -325,6 +331,34 @@ public class Database {
         }
         return rows.size() == 1 ? true : false;
     }
+
+    public static ArrayList<HashMap<String, String>> getOccupiedSeatsByCinema(int id) {
+        String sql = "SELECT Id FROM seat WHERE cinema = " + id;
+        String sql2 = "SELECT * FROM seat_reservation WHERE seat IN(" + sql + ")";
+        ArrayList<HashMap<String, String>> rows = new ArrayList<HashMap<String, String>>();
+        // HashMap<String, String> resultSet = new HashMap<String, String>();
+
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql2)){
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            // loop through the result set
+            while (rs.next()) {
+                HashMap<String, String> resultSet = new HashMap<String, String>();
+
+                for(int i = 1; i<= rsmd.getColumnCount(); i++) {
+                    String column = rs.getString(i);
+                    resultSet.put(rsmd.getColumnName(i),column);
+                }
+                rows.add(resultSet);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return rows;
+    }
+
     public static ArrayList<HashMap<String, String>> findMovieByTheatre(String id){
         String sql = "SELECT movie FROM screening WHERE cinema in (SELECT Id from cinema WHERE theatre = " + id + " )";
         ArrayList<HashMap<String, String>> rows = new ArrayList<HashMap<String, String>>();

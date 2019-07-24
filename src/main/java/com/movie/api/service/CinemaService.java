@@ -25,11 +25,11 @@ public class CinemaService {
     }
 
     public ArrayList<HashMap<String, String>> findAllMovies() {
-        return Database.selectAll("movies");
+        return Database.selectAll("movie");
     }
 
     public ArrayList<HashMap<String, String>> findMovieById(String id) {
-        return Database.selectById("movies", id );
+        return Database.selectById("movie", id );
     }
 
     public ArrayList<HashMap<String, String>> findAllReservations() {
