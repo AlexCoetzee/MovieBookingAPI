@@ -25,20 +25,6 @@ export class SeatsComponent implements OnInit {
     });
   }
 
-  get showAvailableSeat() {
-    if (this.allSeats === undefined || this.occupiedSeats === undefined) {
-      return false;
-    }
-    this.allSeats.forEach(a => {
-      this.occupiedSeats.forEach(b => {
-        if (a.Id === b.seat) {
-          return false;
-        }
-      });
-    });
-    return true;
-  }
-
   async findSeats() {
     this.theatreService.getCinemaByIdAndMovie(1, 1).subscribe(data => {
       this.cinema = data['responseBody'];
