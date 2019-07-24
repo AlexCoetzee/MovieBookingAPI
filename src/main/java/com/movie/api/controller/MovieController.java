@@ -152,7 +152,6 @@ public class MovieController implements ErrorController {
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
     public Response bookATicket(@RequestBody Booking reservation) {
-        System.out.println("---------------------------------------------");
         int seatAvailableId = cinemaService.bookSeat(reservation.getSeatId(),reservation.getScreeningId(),reservation.getName(),reservation.getSeatId());
         if (seatAvailableId>=1) {
             return new Response.Builder(seatAvailableId).responseStatus(HttpStatus.CREATED).message("SUCCESS").build();
