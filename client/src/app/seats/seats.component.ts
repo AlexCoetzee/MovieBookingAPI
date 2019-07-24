@@ -15,8 +15,9 @@ export class SeatsComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.theatreService.getTheatreSeatsByIdAndMovie(1, 1).subscribe(data => {
-        this.seats = data["responseBody"]["seats"];
-        console.log(this.seats)
+        this.seats = data["responseBody"];
+        console.log(data);
+        console.log(this.seats);
       })
     })
   }

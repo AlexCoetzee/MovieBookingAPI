@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 //Get movies by theatres
 //Get All Cinemas
 //Get Cinema by id
+//Get cinema by movieId and theatreId
 //Get all seats per cinema
 //Get All movies
 //Get movie by id
@@ -77,8 +78,14 @@ public class MovieController implements ErrorController {
     @RequestMapping(value = "cinemas/{cinemaId}", method = RequestMethod.GET )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
-    private Response getMovieById(@PathVariable("cinemaId") String id) {
+    private Response getCinemaById(@PathVariable("cinemaId") String id) {
         return new Response.Builder(cinemaService.findCinemaById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+    @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}/seats", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response getCinemaByMovieAndTheatre(@PathVariable("theatreId") int idTheatre, @PathVariable("movieId") int idMovie) {
+        return new Response.Builder(cinemaService.getCinemaByMovieAndTheatre(idTheatre,idMovie)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
     @RequestMapping(value = "cinemas/{cinemaId}/seats", method = RequestMethod.GET )
