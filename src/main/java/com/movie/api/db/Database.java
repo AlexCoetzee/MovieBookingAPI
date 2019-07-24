@@ -360,7 +360,7 @@ public class Database {
     }
 
     public static ArrayList<HashMap<String, String>> findMovieByTheatre(String id){
-        String sql = "SELECT movie FROM screening WHERE cinema in (SELECT Id from cinema WHERE theatre = " + id + " )";
+        String sql = "SELECT DISTINCT movie FROM screening WHERE cinema in (SELECT Id from cinema WHERE theatre = " + id + " )";
         ArrayList<HashMap<String, String>> rows = new ArrayList<HashMap<String, String>>();
         // HashMap<String, String> resultSet = new HashMap<String, String>();
 
