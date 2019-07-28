@@ -1,4 +1,5 @@
-<div *ngFor="let seat of seats">
-    <p>{{seat.Id}}</p>
+<div *ngFor="let seat of allSeats">
+  <mat-icon [ngClass]="{'class': true}">event_seat</mat-icon>
+  <p>{{ seat.Id }}</p>
 </div>
 <!--*ngIf="seat.seatInfo == 'AVAILABLE'"  -->

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TheatreService } from '../shared/theatre.service';
+import { TheatreService } from '../services/theatre.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,7 +16,7 @@ export class TheatresComponent implements OnInit {
   constructor(private theatreService: TheatreService, private _router: Router) { }
 
   ngOnInit() {
-    this.theatreService.getAll().subscribe(data => {
+    this.theatreService.getAllTheatres().subscribe(data => {
       this.theatres = data['responseBody'];
       console.log(this.theatres);
     });
