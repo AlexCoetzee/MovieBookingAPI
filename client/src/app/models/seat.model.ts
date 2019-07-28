@@ -1,5 +1,9 @@
-export class SeatModel{
-    isOccupied: boolean;
-    isSelected: boolean;
-    Id: Number;
+export class SeatModel {
+  isOccupied: Boolean;
+  isSelected: Boolean;
+  rowid: Number;
+  Id: Number;
+  row: Number;
+  number: Number;
+  cinema: Number;
 }

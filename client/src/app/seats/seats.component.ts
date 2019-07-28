@@ -12,9 +12,10 @@ import { CinemaService } from "../services/cinema.service";
 export class SeatsComponent implements OnInit {
   cinema: Array<any>;
 
-  allSeats: Array<SeatModel>;
-  emptySeats: Array<SeatModel>;
-  occupiedSeats: Array<SeatReservationModel>;
+  // allSeats: Array<SeatModel>;
+  seats: Array<SeatModel>;
+  // emptySeats: Array<SeatModel>;
+  // occupiedSeats: Array<SeatReservationModel>;
 
   constructor(
     private cinemaService: CinemaService,
@@ -23,27 +24,27 @@ export class SeatsComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.emptySeats = new Array<any>();
+      // this.emptySeats = new Array<SeatModel>();
       this.findSeats();
     });
   }
 
   findSeats() {
     this.cinemaService.getCinemaByIdAndMovie(1, 1).subscribe(data => {
-      this.cinema = data["responseBody"];
+      this.cinema = data.responseBody;
       console.log(this.cinema);
 
       this.cinemaService
         .getSeatByCinema(this.cinema[0].cinema)
         .subscribe(data => {
-          this.allSeats = data["responseBody"];
+          this.allSeats = data.responseBody;
           console.log(this.allSeats);
         });
 
       this.cinemaService
         .getOccupiedSeatByCinema(this.cinema[0].cinema)
         .subscribe(data => {
-          this.occupiedSeats = data["responseBody"];
+          this.occupiedSeats = data.responseBody;
           console.log(this.occupiedSeats);
 
           this.allSeats.forEach(a => {
