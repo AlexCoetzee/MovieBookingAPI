@@ -27,27 +27,23 @@ export class SeatsComponent implements OnInit {
 
   async findSeats() {
     this.theatreService.getCinemaByIdAndMovie(1, 1).subscribe(data => {
-      this.cinema = data['responseBody'];
-      console.log(this.cinema);
+      this.cinema = data.responseBody;
       this.theatreService.getSeatByCinema(this.cinema[0].cinema).subscribe(data => {
-        this.allSeats = data['responseBody'];
+        this.allSeats = data.responseBody;
         console.log(this.allSeats);
-      });
-      this.theatreService.getOccupiedSeatByCinema(this.cinema[0].cinema).subscribe(data => {
-        this.occupiedSeats = data['responseBody'];
-        console.log(this.occupiedSeats);
-
-        this.allSeats.forEach(a => {
-          let isInArray = false
-          this.occupiedSeats.forEach(b => {
-            if (a.Id === b.seat) {
-              isInArray = true;
+        this.theatreService.getOccupiedSeatByCinema(this.cinema[0].cinema).subscribe(data => {
+          this.occupiedSeats = data.responseBody;
+          this.allSeats.forEach(a => {
+            let isInArray = false;
+            this.occupiedSeats.forEach(b => {
+              if (a.Id === b.seat) {
+                isInArray = true;
+              }
+            });
+            if (!isInArray) {
+              this.seats.push(a);
             }
           });
-          if (!isInArray) {
-            this.seats.push(a);
-          }
-          
         });
       });
     });
