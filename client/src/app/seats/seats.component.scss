@@ -1,11 +1,28 @@
-.empty-seat{
-    color: black;
+.seat {
+  padding-left: 35%;
+  padding-right: 35%;
 }
 
-.selected-seat{
-    color: blue;
+.seat-icon {
+  font-size: 4em;
+
+  margin-left: 12%;
+  cursor: pointer;
 }
 
-.occupied-seat{
-    color: red;
+.seat-id {
+  margin-left: 12%;
+  cursor: pointer;
+}
+
+.empty-seat {
+  color: black;
+}
+
+.selected-seat {
+  color: blue;
+}
+
+.occupied-seat {
+  color: red;
 }

@@ -1,40 +1,44 @@
 <!-- <div> -->
 <form>
-    <h4>Select a theatre to get started</h4>
-    <mat-form-field color="accent">
-        <mat-label>Closest Theatre</mat-label>
-        <mat-select name="theatre" (selectionChange)="getMovies($event.value)">
-            <mat-option *ngFor="let theatre of theatres" [value]="theatre.Id">
-                {{theatre.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+  <h4>Select a theatre to get started</h4>
+  <mat-form-field color="accent">
+    <mat-label>Closest Theatre</mat-label>
+    <mat-select name="theatre" (selectionChange)="getMovies($event.value)">
+      <mat-option *ngFor="let theatre of theatres" [value]="theatre.Id">
+        {{ theatre.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </form>
 
 <div *ngIf="theatresMovies != null" class="movieCards">
-    <h4>Select your movie</h4>
-    <div class="card" *ngFor="let movies of theatresMovies">
-        <div class="poster"><img
-                src="https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/1/11/Avengers_Infinity_war_poster.jpeg/revision/latest/scale-to-width-down/324?cb=20180316141550">
-        </div>
-        <div class="details">
-            <h2>{{movies.title}}<br></h2>
-
-            <div class="tags">
-                <span class="fantasy">{{movies.showing}}</span>
-                <!-- <span class="scifi">Sci Fi</span> -->
-            </div>
-
-            <div class="Description">
-                <p>{{movies.movieDescription}}</p>
-            </div>
-
-            <div class="star">
-                <button mat-raised-button (click)="chooseSeats(movies.movieId)">Book Now</button>
-            </div>
-        </div>
+  <h4>Select your movie</h4>
+  <div class="card" *ngFor="let movies of theatresMovies">
+    <div class="poster">
+      <img
+        src="https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/1/11/Avengers_Infinity_war_poster.jpeg/revision/latest/scale-to-width-down/324?cb=20180316141550"
+      />
     </div>
-    <br>
+    <div class="details">
+      <h2>{{ movies.title }}<br /></h2>
+
+      <div class="tags">
+        <span class="fantasy">{{ movies.showing }}</span>
+        <!-- <span class="scifi">Sci Fi</span> -->
+      </div>
+
+      <div class="Description">
+        <p>{{ movies.movieDescription }}</p>
+      </div>
+
+      <div class="star">
+        <button mat-raised-button (click)="chooseSeats(movies.Id)">
+          Book Now
+        </button>
+      </div>
+    </div>
+  </div>
+  <br />
 </div>
 <!-- <p>{{theatre.theatreName}}</p> -->
 <!-- </div> -->

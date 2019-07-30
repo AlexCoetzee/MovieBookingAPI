@@ -8,17 +8,24 @@ import { Injectable } from "@angular/core";
 export class CinemaService {
   constructor(private http: HttpClient) {}
 
-  getCinemaByIdAndMovie(id, movieId): Observable<any> {
+  getCinemaByIdAndMovie(theatreId: Number, movieId: Number): Observable<any> {
     return this.http.get(
-      "http://localhost:8080/theatres/" + id + "/movies/" + movieId + "/cinema"
+      "http://localhost:8080/theatres/" +
+        theatreId +
+        "/movies/" +
+        movieId +
+        "/cinema"
     );
   }
-  getSeatByCinema(id): Observable<any> {
-    return this.http.get("http://localhost:8080/cinemas/" + id + "/seats");
-  }
-  getOccupiedSeatByCinema(id): Observable<any> {
+  getSelectedCinemaId() {}
+  getSeatByCinema(cinemaId: Number): Observable<any> {
     return this.http.get(
-      "http://localhost:8080/cinemas/" + id + "/occupiedSeats"
+      "http://localhost:8080/cinemas/" + cinemaId + "/seats"
+    );
+  }
+  getOccupiedSeatByCinema(cinemaId: Number): Observable<any> {
+    return this.http.get(
+      "http://localhost:8080/cinemas/" + cinemaId + "/occupiedSeats"
     );
   }
 }

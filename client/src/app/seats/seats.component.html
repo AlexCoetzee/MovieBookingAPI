@@ -1,5 +1,9 @@
-<div *ngFor="let seat of allSeats">
-  <mat-icon [ngClass]="{'class': true}">event_seat</mat-icon>
-  <p>{{ seat.Id }}</p>
+<p>Total seats: {{ getTotalSeats() }}</p>
+<p>Available seats: {{ getNumAvailableSeats() }}</p>
+<div class="seat">
+  <span *ngFor="let seat of allSeats"
+    ><mat-icon class="seat-icon" [ngClass]="{ class: true }"
+      >event_seat</mat-icon
+    ></span
+  >
 </div>
-<!--*ngIf="seat.seatInfo == 'AVAILABLE'"  -->

@@ -12,10 +12,10 @@ export class TheatreService {
     return this.http.get("http://localhost:8080/theatres");
   }
 
-  getTheatreMoviesById(id): Observable<any> {
-    console.log(id);
-    return this.http.get("http://localhost:8080/theatres/" + id + "/movies");
+  getTheatreMoviesById(theatreId: Number): Observable<any> {
+    console.log(theatreId);
+    return this.http.get(
+      "http://localhost:8080/theatres/" + theatreId + "/movies"
+    );
   }
-
-  
 }
