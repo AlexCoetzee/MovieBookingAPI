@@ -1,12 +1,12 @@
-.seat {
-  padding-left: 35%;
+.seat-layout {
+  padding-left: 32%;
   padding-right: 35%;
 }
 
 .seat-icon {
   font-size: 4em;
+  margin-left: 1em;
 
-  margin-left: 12%;
   cursor: pointer;
 }
 
@@ -19,10 +19,10 @@
   color: black;
 }
 
-.selected-seat {
-  color: blue;
-}
-
 .occupied-seat {
   color: red;
+}
+
+.selected-seat {
+  color: blue;
 }

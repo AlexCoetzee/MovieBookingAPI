@@ -18,6 +18,9 @@ export class SeatsComponent implements OnInit {
   seats: Array<SeatModel>;
   availableSeats: Array<SeatModel>;
   occupiedSeats: Array<SeatReservationModel>;
+  selectedSeats: Array<SeatModel>;
+
+  seatsLayout: Array<Array<SeatModel>>;
 
   constructor(
     private cinemaService: CinemaService,
@@ -25,6 +28,8 @@ export class SeatsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.selectedSeats = [];
+
     this.route.queryParams.subscribe(params => {
       this.theatreId = params["id"];
       this.movieId = params["movie"];
@@ -38,21 +43,19 @@ export class SeatsComponent implements OnInit {
       .getCinemaByIdAndMovie(this.theatreId, this.movieId)
       .subscribe(data => {
         this.cinema = data.responseBody;
-        console.log(this.cinema);
 
         this.cinemaService
           .getSeatByCinema(this.cinema[0].cinema)
           .subscribe(data => {
             this.allSeats = data.responseBody;
-            console.log("ALL SEATS: ");
-            console.log(  this.allSeats);
+
+            this.buildSeatsLayoutArray();
           });
 
         this.cinemaService
           .getOccupiedSeatByCinema(this.cinema[0].cinema)
           .subscribe(data => {
             this.occupiedSeats = data.responseBody;
-            console.log(this.occupiedSeats);
 
             this.allSeats.forEach(a => {
               let isInArray = false;
@@ -69,11 +72,72 @@ export class SeatsComponent implements OnInit {
       });
   }
 
-  getNumAvailableSeats() {
-    return this.availableSeats.length;
+  get getNumAvailableSeats() {
+    if (this.availableSeats) {
+      return this.availableSeats.length;
+    }
   }
 
-  getTotalSeats() {
-    return this.allSeats.length;
+  get getTotalSeats() {
+    if (this.allSeats) {
+      return this.allSeats.length;
+    }
+  }
+
+  get getTotalSelectedSeats() {
+    if (this.selectedSeats) {
+      return this.selectedSeats.length;
+    }
+  }
+
+  buildSeatsLayoutArray() {
+    let count = 1;
+    this.seatsLayout = [];
+    let row = [];
+    for (let i = 1; i <= 5; i++) {
+      row = [];
+      for (let seat of this.allSeats) {
+        if (seat.row == i) {
+          row.push(seat);
+        }
+      }
+      this.seatsLayout.push(row);
+    }
+    console.log(this.seatsLayout);
+  }
+
+  checkIfSeatIsSelected(id: Number): boolean {
+    if (this.selectedSeats != undefined) {
+      let seat = this.selectedSeats.find(e => e.Id === id);
+      if (seat === undefined) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+  checkIfSeatIsOccupied(id: Number): boolean {
+    if (this.occupiedSeats != undefined) {
+      let seat = this.occupiedSeats.find(element => element.seat === id);
+      if (seat === undefined) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  selectSeat(seat: SeatModel) {
+    if (this.checkIfSeatIsSelected(seat.Id)) {
+      let index = this.selectedSeats.indexOf(seat);
+      this.selectedSeats.splice(index, 1);
+    } else {
+      if (!this.checkIfSeatIsOccupied(seat.Id)) {
+        this.selectedSeats.push(seat);
+      }
+    }
   }
 }

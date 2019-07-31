@@ -1,9 +1,21 @@
-<p>Total seats: {{ getTotalSeats() }}</p>
-<p>Available seats: {{ getNumAvailableSeats() }}</p>
-<div class="seat">
-  <span *ngFor="let seat of allSeats"
-    ><mat-icon class="seat-icon" [ngClass]="{ class: true }"
-      >event_seat</mat-icon
-    ></span
-  >
-</div>
+<p>Total seats: {{ getTotalSeats }}</p>
+<p>Available seats: {{ getNumAvailableSeats }}</p>
+<table class="seat-layout" *ngIf="seatsLayout">
+  <tr *ngFor="let row of seatsLayout; let i = index">
+    <td *ngFor="let seat of seatsLayout[i]">
+      <mat-icon
+        class="seat-icon"
+        [ngClass]="{
+          'empty-seat':
+            !checkIfSeatIsOccupied(seat.Id) && !checkIfSeatIsSelected(seat.Id),
+          'occupied-seat': checkIfSeatIsOccupied(seat.Id),
+          'selected-seat': checkIfSeatIsSelected(seat.Id)
+        }"
+        (click)="selectSeat(seat)"
+        >event_seat</mat-icon
+      >
+    </td>
+  </tr>
+</table>
+
+<p>Seats selected: {{ getTotalSelectedSeats }}</p>
