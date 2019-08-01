@@ -336,8 +336,8 @@ public class Database {
         return rows;
     }
 
-    public static boolean checkSeatOccupied(int id) {
-        String sql = "SELECT * FROM seat_reservation WHERE seat = " + id;
+    public static boolean checkSeatOccupied(int id, int screeningId) {
+        String sql = "SELECT * FROM seat_reservation WHERE seat = " + id +" AND screening = " + screeningId;
         ArrayList<HashMap<String, String>> rows = new ArrayList<HashMap<String, String>>();
         // HashMap<String, String> resultSet = new HashMap<String, String>();
 

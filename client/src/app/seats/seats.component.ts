@@ -5,6 +5,7 @@ import { SeatReservationModel } from "../models/seatReservation.model";
 import { CinemaService } from "../services/cinema.service";
 import { BookingService } from "../services/booking.service";
 import { MatSnackBar } from "@angular/material";
+import { FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-seats",
@@ -29,6 +30,8 @@ export class SeatsComponent implements OnInit {
 
   seatsLayout: Array<Array<SeatModel>>;
 
+  nameFormControl: FormControl;
+
   constructor(
     private cinemaService: CinemaService,
     private route: ActivatedRoute,
@@ -38,6 +41,8 @@ export class SeatsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.nameFormControl = new FormControl("", [Validators.required]);
+
     this.selectedSeats = [];
     this.seatIds = [];
     this.route.queryParams.subscribe(params => {
@@ -163,24 +168,43 @@ export class SeatsComponent implements OnInit {
   }
 
   confirmPay() {
-    this.setSeatingDetails();
+    this.nameFormControl.markAsTouched();
 
-    this.name = "default";
+    if (this.nameFormControl.valid) {
+      this.name = this.nameFormControl.value;
+    }
+
     if (this.selectedSeats.length > 0 && this.name && this.name !== "") {
+      this.setSeatingDetails();
+
       console.log(this.bookingService.getBookingDetail("theatreId"));
       console.log(this.movieId);
       console.log(this.seatIds);
       console.log(this.screeningId);
 
-      this.bookingService.makeBooking(
-        this.bookingService.getBookingDetail("theatreId"),
-        this.movieId,
-        this.seatIds,
-        this.screeningId,
-        this.name
-      );
-
-      this.router.navigate(["/confirm"]);
+      this.bookingService
+        .makeBooking(
+          this.bookingService.getBookingDetail("theatreId"),
+          this.movieId,
+          this.seatIds,
+          this.screeningId,
+          this.name
+        )
+        .subscribe(data => {
+          console.log(data);
+          if (data["responseStatus"] !== "CREATED") {
+            this.snackBar.open(
+              "An error has occured, please try again later",
+              null,
+              {
+                duration: 2000,
+                panelClass: ["alert-red"]
+              }
+            );
+          } else {
+            this.router.navigate(["/confirm"]);
+          }
+        });
     } else if (this.selectedSeats.length < 0) {
       this.snackBar.open("Please select at least one seat", null, {
         duration: 2000,

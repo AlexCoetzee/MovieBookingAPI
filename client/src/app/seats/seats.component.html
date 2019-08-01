@@ -23,7 +23,20 @@
 
 <p>Seats selected: {{ getTotalSelectedSeats }}</p>
 <p>Total cost: R{{ getTotalCost }}.00</p>
-<input class="name-input" matInput placeholder="Please enter your name" />
-<button mat-raised-button (click)="confirmPay()">
+
+<form>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Please enter your name"
+      [formControl]="nameFormControl"
+    />
+    <mat-error>
+      Name is required
+    </mat-error>
+  </mat-form-field>
+</form>
+
+<button class="confirm-pay-button" mat-raised-button (click)="confirmPay()">
   Confirm and Pay
 </button>

@@ -48,23 +48,14 @@ export class BookingService {
         "Content-Type": "application/json"
       })
     };
-    let test = this.httpClient
-      .post(
-        "http://localhost:8080/theatres/" +
-          theatreId +
-          "/movies/" +
-          movieId +
-          "/book-a-seat",
-        bookingInfo
-      )
-      .pipe(
-        map(res => {
-          debugger;
-          console.log(res);
-        })
-      );
-    console.log(test);
-    return test;
+    return this.httpClient.post(
+      "http://localhost:8080/theatres/" +
+        theatreId +
+        "/movies/" +
+        movieId +
+        "/book-a-seat",
+      bookingInfo
+    );
   }
 
   clearBooking() {
@@ -78,7 +69,7 @@ export class BookingService {
     this.bookingDetails.movieDate = null;
     this.bookingDetails.movieTime = null;
     this.bookingDetails.name = null;
-    this.bookingDetails.seats = null;
-    this.bookingDetails.seatIds = null;
+    this.bookingDetails.seats = [];
+    this.bookingDetails.seatIds = [];
   }
 }

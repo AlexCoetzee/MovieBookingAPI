@@ -87,7 +87,7 @@ public class CinemaService {
 
     public boolean bookSeat(int[] ids, int screening, String reservationName) {
         for (int id:ids) {
-            if (Database.checkSeatOccupied(id)) {
+            if (Database.checkSeatOccupied(id,screening)) {
                 return false;
             }
         }
