@@ -91,7 +91,7 @@ public class CinemaService {
                 return false;
             }
         }
-
+        
         for (int id:ids) {
             int seatReservationId =Database.bookSeat(screening, reservationName, id);
             if(seatReservationId == -1) {
