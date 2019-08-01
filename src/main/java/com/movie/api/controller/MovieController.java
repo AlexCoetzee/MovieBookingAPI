@@ -184,7 +184,7 @@ public class MovieController implements ErrorController {
     @RequestMapping(value = "movie-count", method = RequestMethod.GET )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
-    private Response getTesting() {
+    private Response getMovieCount() {
         return new Response.Builder(cinemaService.getMovieCount()).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
