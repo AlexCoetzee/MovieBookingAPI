@@ -12,11 +12,20 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule, MatIconModule } from "@angular/material";
 import { MatButtonModule } from "@angular/material/button";
 import { SeatsComponent } from "./seats/seats.component";
-import { PayConfirmationComponent } from './pay-confirmation/pay-confirmation.component';
-import { BookingDetailsComponent } from './booking-details/booking-details.component';
+import { PayConfirmationComponent } from "./pay-confirmation/pay-confirmation.component";
+import { BookingDetailsComponent } from "./booking-details/booking-details.component";
+import { ScreeningComponent } from "./screening/screening.component";
+import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
-  declarations: [AppComponent, TheatresComponent, SeatsComponent, PayConfirmationComponent, BookingDetailsComponent],
+  declarations: [
+    AppComponent,
+    TheatresComponent,
+    SeatsComponent,
+    PayConfirmationComponent,
+    BookingDetailsComponent,
+    ScreeningComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -27,7 +36,8 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

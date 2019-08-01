@@ -95,10 +95,10 @@ public class MovieController implements ErrorController {
         return new Response.Builder(cinemaService.findSeatByCinema(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
-    @RequestMapping(value = "cinemas/{cinemaId}/occupiedSeats", method = RequestMethod.GET )
+    @RequestMapping(value = "cinemas/{screeningId}/occupiedSeats", method = RequestMethod.GET )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
-    private Response getOccupiedSeatByCinema(@PathVariable("cinemaId") int id) {
+    private Response getOccupiedSeatByCinema(@PathVariable("screeningId") int id) {
         return new Response.Builder(cinemaService.getOccupiedSeats(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
@@ -147,11 +147,18 @@ public class MovieController implements ErrorController {
         return new Response.Builder(cinemaService.findAllScreenings()).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
-    @RequestMapping(value = "screenings/{screeningId}", method = RequestMethod.GET )
+    @RequestMapping(value = "screenings/id/{screeningId}", method = RequestMethod.GET )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
     private Response getScreeningById(@PathVariable("screeningId") String id) {
         return new Response.Builder(cinemaService.findScreeningById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    @RequestMapping(value = "screenings/movies/{movieId}", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response getScreeningByMovieId(@PathVariable("movieId") int id) {
+        return new Response.Builder(cinemaService.getScreeningByMovie(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
     @RequestMapping(value = "screenings/{screeningId}/seat_reservations", method = RequestMethod.GET )
@@ -166,8 +173,8 @@ public class MovieController implements ErrorController {
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
     public Response bookATicket(@RequestBody Booking reservation) {
-        int seatAvailableId = cinemaService.bookSeat(reservation.getSeatId(),reservation.getScreeningId(),reservation.getName(),reservation.getSeatId());
-        if (seatAvailableId>=1) {
+        boolean seatAvailableId = cinemaService.bookSeat(reservation.getSeatId(),reservation.getScreeningId(),reservation.getName());
+        if (seatAvailableId) {
             return new Response.Builder(seatAvailableId).responseStatus(HttpStatus.CREATED).message("SUCCESS").build();
         }
         return new Response.Builder("").responseStatus(HttpStatus.CONFLICT).message("SEAT UNAVAILABLE").build();

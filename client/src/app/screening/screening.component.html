@@ -1,0 +1,6 @@
+<mat-tab-group>
+    <mat-tab *ngFor="let screen of screening | keyvalue">
+      <ng-template mat-tab-label>{{screen.key}}</ng-template>
+            <button mat-raised-button color="primary" *ngFor="let time of screen.value" (click)="test(time, screen.key)">{{time}}</button>
+    </mat-tab>
+  </mat-tab-group>

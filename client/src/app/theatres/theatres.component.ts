@@ -36,12 +36,12 @@ export class TheatresComponent implements OnInit {
     });
   }
 
-  chooseSeats(movieId) {
+  chooseScreening(movieId) {
     console.log("MOVIE ID: " + movieId);
-    this._router.navigate(["/seats/"], {
+    this._router.navigate(["/screening/"], {
       queryParams: {
         id: this.theatreId,
-        movie: movieId
+        movieId: movieId
       }
     });
   }
