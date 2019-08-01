@@ -61,6 +61,26 @@ public class CinemaService {
         return true;
     }
 
+    public boolean deleteCinema(int id) {
+        Database.delete("cinema", id);
+        return true;
+    }
+
+    public boolean deleteMovie(int id) {
+        Database.delete("movie", id);
+        return true;
+    }
+
+    public boolean deleteScreening(int id) {
+        Database.delete("screening", id);
+        return true;
+    }
+
+    public boolean deleteTheatre(int id) {
+        Database.delete("theatre", id);
+        return true;
+    }
+
     public ArrayList<HashMap<String, String>> getMoviesByTheatre(String id) {
         ArrayList<HashMap<String, String>> movieIds = Database.findMovieByTheatre(id);
         ArrayList<HashMap<String, String>> movies= new ArrayList<HashMap<String, String>>();
@@ -91,7 +111,7 @@ public class CinemaService {
                 return false;
             }
         }
-
+        
         for (int id:ids) {
             int seatReservationId =Database.bookSeat(screening, reservationName, id);
             if(seatReservationId == -1) {
@@ -106,5 +126,7 @@ public class CinemaService {
 //        }
 //        return -1;
     }
+
+    public int getMovieCount() {return Database.getMovieCount(); }
 
 }

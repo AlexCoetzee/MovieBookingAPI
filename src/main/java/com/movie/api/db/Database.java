@@ -63,6 +63,147 @@ public class Database {
         }
     }
 
+    public static int updateMovieById(String name, String description ,String movieGenre, int id) {
+        String sql = "UPDATE movie SET movieName = ?, movieDescription = ?, genre = ? WHERE id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, description);
+            pstmt.setString(3, movieGenre);
+            pstmt.setInt(4, id);
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateCinemaById(String name, int seatCount, int theatre ) {
+        String sql = "UPDATE cinema SET name = ?, seatCount = ?, theatre = ? WHERE id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, name);
+            pstmt.setInt(2, seatCount);
+            pstmt.setInt(3, theatre);
+            pstmt.setInt(4, id);
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateTheatreById(String name, String location) {
+        String sql = "UPDATE theatre SET name = ?, location = ? WHERE id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, location);
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateReservationById(int screening, String name, int id) {
+        String sql = "UPDATE reservation SET screening = ?, name = ? WHERE id = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setInt(1, screening);
+            pstmt.setString(2, name);
+            pstmt.setInt(3, id);
+
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateScreeningById(int movie, Timestamp time, int cinema, int id) {
+        String sql = "UPDATE screening SET movie = ?, time = ?, cinema = ? WHERE id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setInt(1, movie);
+            pstmt.setTimestamp(2, time);
+            pstmt.setInt(3, cinema);
+            pstmt.setInt(4, id);
+
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateSeatById(int row, int number, int cinema, int id) {
+        String sql = "UPDATE seat SET row = ?, number = ?, cinema = ? WHERE id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setInt(1, row);
+            pstmt.setInt(2, number);
+            pstmt.setInt(3, cinema);
+            pstmt.setInt(4, id);
+
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateSeatReservation(int seat, int reservation, int screening , LocalDateTime timeCreated, int id) {
+        String sql = "UPDATE seat_reservation SET seat = ?, reservation = ?, screening = ?, timeCreated = ? WHERE id = ?";
+
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setInt(1, seat);
+            pstmt.setInt(2, reservation);
+            pstmt.setInt(3, screening);
+            pstmt.setString(4, timeCreated.toString());
+            pstmt.setInt(5, id);
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
     public static int insertMovie(String name, String description ,String movieGenre,String imageUrl) {
         String sql = "INSERT INTO movie(movieName,movieDescription,genre,url) VALUES(?,?,?,?)";
 
@@ -120,12 +261,14 @@ public class Database {
         return -1;
     }
 
-    public static int insertReservation( int screening, String name) {
-        String sql = "INSERT INTO reservation(screening, name) VALUES(?,?)";
+    public static int insertReservation( int screening, String name , LocalDateTime timeCreated) {
+        String sql = "INSERT INTO reservation(screening, name,timeCreated) VALUES(?,?,?)";
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, screening);
             pstmt.setString(2, name);
+            pstmt.setString(3, timeCreated.toString());
+
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             if(rs.next()) {
@@ -175,15 +318,14 @@ public class Database {
         return -1;
     }
 
-    public static int insertSeatReservation(int seat, int reservation, int screening , LocalDateTime timeCreated) {
-        String sql = "INSERT INTO seat_reservation(seat, reservation, screening,timeCreated) VALUES(?,?,?,?)";
+    public static int insertSeatReservation(int seat, int reservation, int screening) {
+        String sql = "INSERT INTO seat_reservation(seat, reservation, screening) VALUES(?,?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, seat);
             pstmt.setInt(2, reservation);
             pstmt.setInt(3, screening);
-            pstmt.setString(4, timeCreated.toString());
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             if(rs.next()) {
@@ -363,7 +505,9 @@ public class Database {
     }
 
     public static ArrayList<HashMap<String, String>> getOccupiedSeatsByCinema(int id) {
-        String sql = "SELECT Id FROM seat WHERE cinema = " + id;
+
+        String sql3 ="SELECT cinema from screening WHERE Id = " + id;
+        String sql = "SELECT Id FROM seat WHERE cinema  IN (" + sql3 + ")";
         String sql2 = "SELECT * FROM seat_reservation WHERE seat IN(" + sql + ")";
         ArrayList<HashMap<String, String>> rows = new ArrayList<HashMap<String, String>>();
         // HashMap<String, String> resultSet = new HashMap<String, String>();
@@ -443,8 +587,8 @@ public class Database {
 
     public static int bookSeat(int screening,String name,int seatId) {
         try {
-            int reservationId = insertReservation(screening,name);
-            int seat_reservationId = insertSeatReservation(seatId,reservationId,screening,LocalDateTime.now());
+            int reservationId = insertReservation(screening,name, LocalDateTime.now());
+            int seat_reservationId = insertSeatReservation(seatId,reservationId,screening);
             return seat_reservationId;
 
         }
@@ -464,6 +608,26 @@ public class Database {
 
         }
     }
+
+    public static int getMovieCount() {
+        String sql = "SELECT COUNT (DISTINCT movieName) AS movieCount FROM movie";
+        // HashMap<String, String> resultSet = new HashMap<String, String>();
+
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            // loop through the result set
+            if(rs.next()) {
+                return rs.getInt("movieCount");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
 
 
 
