@@ -63,6 +63,147 @@ public class Database {
         }
     }
 
+    public static int updateMovieById(String name, String description ,String movieGenre, int id) {
+        String sql = "UPDATE movie SET movieName = ?, movieDescription = ?, genre = ? WHERE id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, description);
+            pstmt.setString(3, movieGenre);
+            pstmt.setInt(4, id);
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateCinemaById(String name, int seatCount, int theatre ) {
+        String sql = "UPDATE cinema SET name = ?, seatCount = ?, theatre = ? WHERE id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, name);
+            pstmt.setInt(2, seatCount);
+            pstmt.setInt(3, theatre);
+            pstmt.setInt(4, id);
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateTheatreById(String name, String location) {
+        String sql = "UPDATE theatre SET name = ?, location = ? WHERE id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, location);
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateReservationById(int screening, String name, int id) {
+        String sql = "UPDATE reservation SET screening = ?, name = ? WHERE id = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setInt(1, screening);
+            pstmt.setString(2, name);
+            pstmt.setInt(3, id);
+
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateScreeningById(int movie, Timestamp time, int cinema, int id) {
+        String sql = "UPDATE screening SET movie = ?, time = ?, cinema = ? WHERE id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setInt(1, movie);
+            pstmt.setTimestamp(2, time);
+            pstmt.setInt(3, cinema);
+            pstmt.setInt(4, id);
+
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateSeatById(int row, int number, int cinema, int id) {
+        String sql = "UPDATE seat SET row = ?, number = ?, cinema = ? WHERE id = ?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setInt(1, row);
+            pstmt.setInt(2, number);
+            pstmt.setInt(3, cinema);
+            pstmt.setInt(4, id);
+
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    public static int updateSeatReservation(int seat, int reservation, int screening , LocalDateTime timeCreated, int id) {
+        String sql = "UPDATE seat_reservation SET seat = ?, reservation = ?, screening = ?, timeCreated = ? WHERE id = ?";
+
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setInt(1, seat);
+            pstmt.setInt(2, reservation);
+            pstmt.setInt(3, screening);
+            pstmt.setString(4, timeCreated.toString());
+            pstmt.setInt(5, id);
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
     public static int insertMovie(String name, String description ,String movieGenre) {
         String sql = "INSERT INTO movie(movieName,movieDescription,genre) VALUES(?,?,?)";
 
