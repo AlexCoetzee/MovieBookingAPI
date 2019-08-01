@@ -209,5 +209,10 @@ public class MovieController implements ErrorController {
         return new Response.Builder("").responseStatus(HttpStatus.CONFLICT).message("SEAT UNAVAILABLE").build();
     }
 
-
+    @RequestMapping(value = "movie-count", method = RequestMethod.GET )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response getMovieCount() {
+        return new Response.Builder(cinemaService.getMovieCount()).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
 }
