@@ -12,9 +12,11 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule, MatIconModule } from "@angular/material";
 import { MatButtonModule } from "@angular/material/button";
 import { SeatsComponent } from "./seats/seats.component";
+import { ScreeningComponent } from './screening/screening.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
-  declarations: [AppComponent, TheatresComponent, SeatsComponent],
+  declarations: [AppComponent, TheatresComponent, SeatsComponent, ScreeningComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -25,7 +27,8 @@ import { SeatsComponent } from "./seats/seats.component";
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

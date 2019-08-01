@@ -32,7 +32,7 @@ export class SeatsComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       this.theatreId = params["id"];
-      this.movieId = params["movie"];
+      this.movieId = params["movieId"];
       this.availableSeats = new Array<SeatModel>();
       this.findSeats();
     });
