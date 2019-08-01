@@ -81,11 +81,26 @@ public class MovieController implements ErrorController {
     private Response getCinemaById(@PathVariable("cinemaId") String id) {
         return new Response.Builder(cinemaService.findCinemaById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
+
+    @RequestMapping(value = "cinemas/{cinemaId}/delete-cinema", method = RequestMethod.DELETE )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response deleteCinema(@PathVariable("cinemaId") String id) {
+        return new Response.Builder(cinemaService.deleteCinema(Integer.valueOf(id))).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
     @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}/cinema", method = RequestMethod.GET )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
     private Response getCinemaByMovieAndTheatre(@PathVariable("theatreId") int idTheatre, @PathVariable("movieId") int idMovie) {
         return new Response.Builder(cinemaService.getCinemaByMovieAndTheatre(idTheatre,idMovie)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    @RequestMapping(value = "theatres/{theatreId}/delete-theatre", method = RequestMethod.DELETE )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response deleteTheatre(@PathVariable("theatreId") String id) {
+        return new Response.Builder(cinemaService.deleteTheatre(Integer.valueOf(id))).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
     @RequestMapping(value = "cinemas/{cinemaId}/seats", method = RequestMethod.GET )
@@ -117,6 +132,13 @@ public class MovieController implements ErrorController {
         return new Response.Builder(cinemaService.findMovieById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
+    @RequestMapping(value = "movies/{movieId}/delete-movie", method = RequestMethod.DELETE )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response deleteMovie(@PathVariable("movieId") String id) {
+        return new Response.Builder(cinemaService.deleteMovie(Integer.valueOf(id))).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
     //RESERVATION CONTROLLER
     @RequestMapping(value = "reservations", method = RequestMethod.GET )
     @ResponseBody
@@ -132,7 +154,7 @@ public class MovieController implements ErrorController {
         return new Response.Builder(cinemaService.findReservationById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
-    @RequestMapping(value = "reservations/{reservationId}/delete-booking", method = RequestMethod.GET )
+    @RequestMapping(value = "reservations/{reservationId}/delete-booking", method = RequestMethod.DELETE )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
     private Response deleteBooking(@PathVariable("reservationId") String id) {
@@ -166,6 +188,13 @@ public class MovieController implements ErrorController {
     @CrossOrigin(origins = "http://localhost:4200")
     private Response getReservationsByScreening(@PathVariable("screeningId") String id) {
         return new Response.Builder(cinemaService.findReservationByScreening(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    @RequestMapping(value = "screenings/{screeningId}/delete-screening", method = RequestMethod.DELETE )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response deleteScreening(@PathVariable("screeningId") String id) {
+        return new Response.Builder(cinemaService.deleteScreening(Integer.valueOf(id))).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
 
