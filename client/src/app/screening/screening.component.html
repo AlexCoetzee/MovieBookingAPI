@@ -8,10 +8,12 @@
       color="primary"
       *ngFor="let time of screen.value"
       (click)="
-        test(time, screen.key); setMovieTime(time); setMovieDate(screen.key)
+        test(time, screen.key);
+        setMovieTime(time.time);
+        setMovieDate(screen.key)
       "
     >
-      {{ time }}
+      {{ time.time }}
     </button>
   </mat-tab>
 </mat-tab-group>
