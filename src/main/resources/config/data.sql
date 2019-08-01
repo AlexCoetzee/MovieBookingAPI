@@ -8,18 +8,18 @@ INSERT INTO `theatre` ( `name`, `Location`) VALUES ('WinterFell', 'Gone but neve
 INSERT INTO `theatre` ( `name`, `Location`) VALUES ('Deathstar', 'Currently Under Construction');
 INSERT INTO `theatre` ( `name`, `Location`) VALUES ('Narnia', 'Open your coat closet');
 INSERT INTO `theatre` ( `name`, `Location`) VALUES ('Cybertron', '?');
-INSERT INTO `theatre` ( `name`, `Location`) VALUES ('Mordor', 'Far Far away');
+INSERT INTO `theatre` ( `name`, `Location`) VALUES ('Mordor', 'Far Far away');,
 
-INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`) VALUES ('Avengers End Game', 'Greatest movie ever.','SuperHero');
-INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`) VALUES ('Spider-Man Far From Home', 'Your Friendly Neighbourhood hero','SuperHero');
-INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`) VALUES ('Hobbs and Shaw', 'Another Fast and Furious Movie','action');
-INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`) VALUES ('John Wick 3', 'Shooting , lots of Shooting','action');
-INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`) VALUES ('Anna', 'I am unsure what this movie is about','action');
-INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`) VALUES ('MIB International', 'Aliens , guns and half the cast of Thor Ragnarok','action');
-INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`) VALUES ('Crawl', 'Aligators and a Hurricane , sounds like Sharknado','Horror');
-INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`) VALUES ('Childs Play', 'Chucky 2.0','Horror');
-INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`) VALUES ('Annabelle Comes Home', 'Chucky 3.0','Horror');
-INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`) VALUES ('Lion King', 'This Years most anticipated horror movie about vicious Lions','Horror');
+INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('Avengers End Game', 'Greatest movie ever.','SuperHero','https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/1/11/Avengers_Infinity_war_poster.jpeg/revision/latest/scale-to-width-down/324?cb=20180316141550');
+INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('Spider-Man Far From Home', 'Your Friendly Neighbourhood hero','SuperHero','https://upload.wikimedia.org/wikipedia/en/b/bd/Spider-Man_Far_From_Home_poster.jpg');
+INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('Hobbs and Shaw', 'Another Fast and Furious Movie','action','https://www.minimaxcinema.co.za/wp-content/uploads/2019/03/Fast.jpg');
+INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('John Wick 3', 'Shooting , lots of Shooting','action','https://m.media-amazon.com/images/M/MV5BMDg2YzI0ODctYjliMy00NTU0LTkxODYtYTNkNjQwMzVmOTcxXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_SY1000_CR0,0,648,1000_AL_.jpg');
+INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('Anna', 'I am unsure what this movie is about','action','https://m.media-amazon.com/images/M/MV5BMjAwNDQwNjUxNV5BMl5BanBnXkFtZTgwODgzMjk2MTE@._V1_SY1000_SX675_AL_.jpg');
+INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('MIB International', 'Aliens , guns and half the cast of Thor Ragnarok','action','https://m.media-amazon.com/images/M/MV5BMDZkODI2ZGItYTY5Yi00MTA4LWExY2ItM2ZmNjczYjM0NDg1XkEyXkFqcGdeQXVyMzY0MTE3NzU@._V1_SY1000_CR0,0,674,1000_AL_.jpg');
+INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('Crawl', 'Aligators and a Hurricane , sounds like Sharknado','Horror','https://image.tmdb.org/t/p/w600_and_h900_bestv2/mKxpYRIrCZLxZjNqpocJ2RdQW8v.jpg');
+INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('Childs Play', 'Chucky 2.0','Horror','https://m.media-amazon.com/images/M/MV5BNTNlNjIxNjktOWUyMS00YWY5LWEwZGItMjZmODJlZWNiZGM2XkEyXkFqcGdeQXVyNDg4NjY5OTQ@._V1_SY1000_CR0,0,674,1000_AL_.jpg');
+INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('Annabelle Comes Home', 'Chucky 3.0','Horror','https://m.media-amazon.com/images/M/MV5BYmI4NDNiMmQtZTFkYi00ZDVmLThlYTAtMWJlMjU1M2I2ZmViXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_SY1000_CR0,0,674,1000_AL_.jpg');
+INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('Lion King', 'This Years most anticipated horror movie about vicious Lions','Horror','https://i1.wp.com/www.nerdsandbeyond.com/wp-content/uploads/2018/11/MV5BMTg5NTY3OTU2N15BMl5BanBnXkFtZTgwOTgyOTA4NjM@._V1_SY1000_SX800_AL_.jpg');
 
 INSERT INTO `cinema` ( `name`, `seatCount`, `theatre`) VALUES ('rerum', 25, 1);
 INSERT INTO `cinema` ( `name`, `seatCount`, `theatre`) VALUES ('veritatis', 25, 1);

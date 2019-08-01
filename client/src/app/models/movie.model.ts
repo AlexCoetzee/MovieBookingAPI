@@ -3,4 +3,5 @@ export class MovieModel{
     Id: Number;
     movieName: String;
     movieDescription: String;
+    url: String;
 }

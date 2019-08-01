@@ -40,7 +40,7 @@ public class Database {
 
     public static void createTables() {
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS movie (Id Integer PRIMARY KEY, movieName varchar(50) NOT NULL, movieDescription varchar(100) , genre varchar(100))";
+        String sql = "CREATE TABLE IF NOT EXISTS movie (Id Integer PRIMARY KEY, movieName varchar(50) NOT NULL, movieDescription varchar(100) , genre varchar(100), url varchar(400))";
         String sql2 = "CREATE TABLE IF NOT EXISTS cinema (Id Integer PRIMARY KEY, name varchar(50) NOT NULL, seatCount Integer NOT NULL, theatre Integer NOT NULL, FOREIGN KEY(theatre) REFERENCES theatre(Id)  )";
         String sql3 = "CREATE TABLE IF NOT EXISTS screening (Id Integer PRIMARY KEY, movie Integer NOT NULL, time TimeStamp NOT NULL, cinema Integer, FOREIGN KEY(movie) REFERENCES movie(Id), FOREIGN KEY(cinema) REFERENCES cinema(Id))";
         String sql4 = "CREATE TABLE IF NOT EXISTS reservation (Id Integer PRIMARY KEY, screening Integer NOT NULL, name varchar(50), timeCreated VARCHAR(100), FOREIGN KEY(screening) REFERENCES screening(Id) )";
@@ -63,14 +63,15 @@ public class Database {
         }
     }
 
-    public static int insertMovie(String name, String description ,String movieGenre) {
-        String sql = "INSERT INTO movie(movieName,movieDescription,genre) VALUES(?,?,?)";
+    public static int insertMovie(String name, String description ,String movieGenre,String imageUrl) {
+        String sql = "INSERT INTO movie(movieName,movieDescription,genre,url) VALUES(?,?,?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, name);
             pstmt.setString(2, description);
             pstmt.setString(3, movieGenre);
+            pstmt.setString(4, imageUrl);
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             if(rs.next()) {
