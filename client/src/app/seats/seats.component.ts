@@ -30,6 +30,7 @@ export class SeatsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private bookingService: BookingService
+
   ) {}
 
   ngOnInit() {
@@ -158,6 +159,7 @@ export class SeatsComponent implements OnInit {
 
   setSeatingDetails() {
     debugger;
+    if(this.selectedSeats.length!=0){
     for (let i = 0; i < this.selectedSeats.length; i++) {
       let row = this.selectedSeats[i].row;
       let seatRowLetter = this.rowLetters[row - 1];
@@ -166,5 +168,9 @@ export class SeatsComponent implements OnInit {
 
       this.bookingService.updateBookingDetail("seats", seatPosition);
     }
+    this.confirmPay();
+  }else{
+      document.getElementById("lblError").innerHTML="Please Select atleast one seat";
+  }
   }
 }

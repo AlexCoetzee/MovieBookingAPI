@@ -1,6 +1,7 @@
 <app-booking-details></app-booking-details>
 <p>Total seats: {{ getTotalSeats }}</p>
 <p>Available seats: {{ getNumAvailableSeats }}</p>
+<h3 id="lblError" style="color: red"></h3>
 <table class="seat-layout" *ngIf="seatsLayout">
   <tr *ngFor="let row of seatsLayout; let i = index" class="row">
     <br />
@@ -27,6 +28,6 @@
 <p>Seats selected: {{ getTotalSelectedSeats }}</p>
 <p>Total cost: R{{ getTotalCost }}.00</p>
 
-<button mat-raised-button (click)="confirmPay(); setSeatingDetails()">
+<button mat-raised-button (click)="setSeatingDetails()">
   Confirm and Pay
 </button>
