@@ -50,7 +50,12 @@
     filter: blur(2px);
     transform: translateY(-30px);
   }
-  
+  .butt {
+    visibility: hidden;
+  }
+  .card:hover .butt {
+    visibility: visible;
+  }
   .details {
     position: absolute;
     padding: 20px;

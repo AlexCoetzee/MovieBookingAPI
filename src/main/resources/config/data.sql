@@ -8,7 +8,7 @@ INSERT INTO `theatre` ( `name`, `Location`) VALUES ('WinterFell', 'Gone but neve
 INSERT INTO `theatre` ( `name`, `Location`) VALUES ('Deathstar', 'Currently Under Construction');
 INSERT INTO `theatre` ( `name`, `Location`) VALUES ('Narnia', 'Open your coat closet');
 INSERT INTO `theatre` ( `name`, `Location`) VALUES ('Cybertron', '?');
-INSERT INTO `theatre` ( `name`, `Location`) VALUES ('Mordor', 'Far Far away');,
+INSERT INTO `theatre` ( `name`, `Location`) VALUES ('Mordor', 'Far Far away');
 
 INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('Avengers End Game', 'Greatest movie ever.','SuperHero','https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/1/11/Avengers_Infinity_war_poster.jpeg/revision/latest/scale-to-width-down/324?cb=20180316141550');
 INSERT INTO `movie` ( `movieName`, `movieDescription` , `genre`, `url`) VALUES ('Spider-Man Far From Home', 'Your Friendly Neighbourhood hero','SuperHero','https://upload.wikimedia.org/wikipedia/en/b/bd/Spider-Man_Far_From_Home_poster.jpg');
@@ -168,6 +168,22 @@ INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 3, '2019-08-04 20:
 INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 3, '2019-08-05 12:00:00', 3);
 INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 3, '2019-08-05 16:00:00', 3);
 INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 3, '2019-08-05 20:00:00', 3);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-01 12:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-01 16:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-01 20:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-02 12:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-02 16:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-02 20:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-03 12:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-03 16:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-03 20:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-04 12:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-04 16:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-04 20:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-05 12:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-05 16:00:00', 4);
+INSERT INTO `screening` ( `movie`, `time`, `cinema`) VALUES ( 4, '2019-08-05 20:00:00', 4);
+
 
 INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES (1, 1,  1);
 INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES (1, 2,  1);
@@ -244,6 +260,31 @@ INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 5, 2, 3);
 INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 5, 3, 3);
 INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 5, 4, 3);
 INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 5, 5, 3);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES (1, 1,  4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES (1, 2,  4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES (1, 3,  4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES (1, 4,  4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES (1, 5,  4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES (2, 1,  4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES (2, 2,  4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES (2, 3,  4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES (2, 4,  4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 2, 5, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 3, 1, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 3, 2, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 3, 3, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 3, 4, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 3, 5, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 4, 1, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 4, 2, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 4, 3, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 4, 4, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 4, 5, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 5, 1, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 5, 2, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 5, 3, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 5, 4, 4);
+INSERT INTO `seat` ( `row`, `number`, `cinema`) VALUES ( 5, 5, 4);
 
 CREATE VIEW MoviesByGenreHorror
 AS SELECT  Id, movieName, movieDescription , genre

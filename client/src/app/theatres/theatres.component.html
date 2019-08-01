@@ -20,7 +20,7 @@
   <div class="card" *ngFor="let movies of theatresMovies">
     <div class="poster">
       <img
-        src={{ movies.url }}
+        src='{{ movies.url }}'
       />
     </div>
     <div class="details">
@@ -36,7 +36,7 @@
       </div>
 
       <div class="star">
-        <button
+        <button class="butt"
           mat-raised-button
           (click)="chooseScreening(movies.Id); setMovie(movies.movieName)"
         >
