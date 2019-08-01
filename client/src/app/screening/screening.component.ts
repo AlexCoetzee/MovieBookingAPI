@@ -8,11 +8,12 @@ import { Time } from '@angular/common';
   templateUrl: './screening.component.html',
   styleUrls: ['./screening.component.scss']
 })
+
 export class ScreeningComponent implements OnInit {
 
   theatreId: number;
   movieId: number;
-  screening = new Map<Date, Array<Time>>();
+  screening = new Map<Date, Array<mappedScreening>>();
   date: Date;
 
   constructor(
@@ -28,13 +29,16 @@ export class ScreeningComponent implements OnInit {
       this.screeningService.test(this.movieId).subscribe(data => {
         data.responseBody.forEach(test => {
 
+          console.log(test);
           if (this.screening.has(test.time.split(" ")[0])) {
             let blet = this.screening.get(test.time.split(" ")[0]);
-            blet.push(test.time.split(" ")[1]);
+            let newMappedScreening = {time: test.time.split(" ")[1], id: test.Id};
+            blet.push(newMappedScreening);
             this.screening.set(test.time.split(" ")[0],blet);
           } else {
-            let arr = new Array<Time>();
-            arr.push(test.time.split(" ")[1]);
+            let arr = new Array<mappedScreening>();
+            let newMappedScreening = {time: test.time.split(" ")[1], id: test.Id};
+            arr.push(newMappedScreening);
             this.screening.set(test.time.split(" ")[0],arr);
           }
         });
@@ -43,17 +47,19 @@ export class ScreeningComponent implements OnInit {
     });
   }
 
-  test(time, key) {
-    console.log(key);
+  test(id) {
     this._router.navigate(["/seats/"], {
       queryParams: {
         id: this.theatreId,
         movieId: this.movieId,
-        date: key,
-        time: time
+        screeningId: id
       }
     });
-    console.log(time);
   }
 
+}
+
+export interface mappedScreening {
+  time : Time;
+  id : number;
 }
