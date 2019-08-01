@@ -15,6 +15,8 @@ export class ScreeningComponent implements OnInit {
   movieId: number;
   screening = new Map<Date, Array<mappedScreening>>();
   date: Date;
+  url: string;
+  index: number;
 
   constructor(
     private screeningService: ScreeningService,
@@ -26,6 +28,7 @@ export class ScreeningComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.theatreId = params["id"];
       this.movieId = params["movieId"];
+      this.url = params["url"];
       this.screeningService.test(this.movieId).subscribe(data => {
         data.responseBody.forEach(test => {
 

@@ -20,13 +20,24 @@
 }
 
 .empty-seat {
-  color: black;
+  color: rgb(72,72,72);
 }
-
+.one-row{
+  color: white;
+}
+.two-row{
+  color: lightgrey;
+}
+.three-row{
+  color: darkgray;
+}
+.four-row{
+  color: grey;
+}
 .occupied-seat {
-  color: red;
+  color: lightcoral;
 }
 
 .selected-seat {
-  color: blue;
+  color: mediumspringgreen;
 }

@@ -1,5 +1,7 @@
 <!-- <div> -->
-<form>
+<html style="height: 100%">
+<div >
+<form >
   <h4>Select a theatre to get started</h4>
   <mat-form-field color="accent">
     <mat-label>Closest Theatre</mat-label>
@@ -38,7 +40,7 @@
       <div class="star">
         <button class="butt"
           mat-raised-button
-          (click)="chooseScreening(movies.Id); setMovie(movies.movieName)"
+          (click)="chooseScreening(movies.Id,movies.url); setMovie(movies.movieName)"
         >
           Book Now
         </button>
@@ -47,3 +49,5 @@
   </div>
   <br />
 </div>
+</div>
+</html>

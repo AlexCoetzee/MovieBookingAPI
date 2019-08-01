@@ -12,10 +12,13 @@
           'empty-seat':
             !checkIfSeatIsOccupied(seat.Id) && !checkIfSeatIsSelected(seat.Id),
           'occupied-seat': checkIfSeatIsOccupied(seat.Id),
-          'selected-seat': checkIfSeatIsSelected(seat.Id)
+          'selected-seat': checkIfSeatIsSelected(seat.Id),
+          'one-row': seat==row[0],
+          'two-row': seat==row[1],
+          'three-row': seat==row[2],
+          'four-row': seat==row[3]
         }"
-        (click)="selectSeat(seat)"
-        >event_seat</mat-icon
+        (click)="selectSeat(seat)">event_seat</mat-icon
       >
     </td>
   </tr>

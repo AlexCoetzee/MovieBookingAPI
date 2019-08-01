@@ -1,6 +1,10 @@
-<mat-tab-group>
+<h2>Please pick a time for your Movie</h2>
+<img style="margin-left:auto; margin-right:auto ; display:block" src="{{this.url}}"/>
+<div >
+<mat-tab-group mat-stretch-tabs>
     <mat-tab *ngFor="let screen of screening | keyvalue">
-      <ng-template mat-tab-label>{{screen.key}}</ng-template>
-            <button mat-raised-button color="primary" *ngFor="let time of screen.value" (click)="test(time.id)">{{time.time}}</button>
+      <ng-template mat-tab-label>{{screen.key}}</ng-template>        
+            <button mat-raised-button color="primary" style="margin: 20px;" *ngFor="let time of screen.value" (click)="test(time.id)">{{time.time}}</button>
     </mat-tab>
   </mat-tab-group>
+</div>
