@@ -1,7 +1,8 @@
 export class BookingDetails {
-  movieName: String;
-  cinemaName: String;
-  theatreName: String;
-  movieTime: String;
-  seats: Array<String>;
+  movieName: string;
+  cinemaName: string;
+  theatreName: string;
+  movieDate: string;
+  movieTime: string;
+  seats: Array<string>;
 }

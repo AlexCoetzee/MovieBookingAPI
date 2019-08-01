@@ -4,6 +4,7 @@ import { SeatModel } from "../models/seat.model";
 import { SeatReservationModel } from "../models/seatReservation.model";
 import { CinemaService } from "../services/cinema.service";
 import { BookingService } from "../services/booking.service";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-seats",
@@ -29,7 +30,8 @@ export class SeatsComponent implements OnInit {
     private cinemaService: CinemaService,
     private route: ActivatedRoute,
     private router: Router,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -153,11 +155,17 @@ export class SeatsComponent implements OnInit {
   }
 
   confirmPay() {
-    this.router.navigate(["/confirm"]);
+    if (this.selectedSeats.length > 0) {
+      this.router.navigate(["/confirm"]);
+    } else {
+      this.snackBar.open("Please select at least one seat", null, {
+        duration: 2000,
+        panelClass: ["alert-red"]
+      });
+    }
   }
 
   setSeatingDetails() {
-    debugger;
     for (let i = 0; i < this.selectedSeats.length; i++) {
       let row = this.selectedSeats[i].row;
       let seatRowLetter = this.rowLetters[row - 1];

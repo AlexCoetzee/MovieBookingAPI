@@ -3,3 +3,9 @@
 .page-content{
     padding-left: 16px;
 }
+
+::ng-deep snack-bar-container.alert-red{
+    padding: 20px;
+    background-color: red;
+    color: white;
+  }

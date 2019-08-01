@@ -4,4 +4,6 @@
 </h3>
 <app-booking-details></app-booking-details>
 
-<a [routerLink]="['']" mat-raised-button>Back to Home</a>
+<a [routerLink]="['']" mat-raised-button (click)="clearBookingDetails()"
+  >Back Home</a
+>

@@ -10,6 +10,7 @@ export class BookingService {
     movieName: null,
     cinemaName: null,
     theatreName: null,
+    movieDate: null,
     movieTime: null,
     seats: []
   };
@@ -30,6 +31,7 @@ export class BookingService {
     this.bookingDetails.movieName = null;
     this.bookingDetails.cinemaName = null;
     this.bookingDetails.theatreName = null;
+    this.bookingDetails.movieDate = null;
     this.bookingDetails.movieTime = null;
     this.bookingDetails.seats = null;
   }
