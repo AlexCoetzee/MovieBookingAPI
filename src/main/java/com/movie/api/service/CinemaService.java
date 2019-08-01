@@ -75,16 +75,36 @@ public class CinemaService {
         return Database.getCinemaByMovieAndTheatre(movieId, theatreId);
     }
 
+    public ArrayList<HashMap<String, String>> getScreeningByMovie(int movieId) {
+        return Database.getScreeningByMovieId(movieId);
+    }
+
+
+
     public ArrayList<HashMap<String, String>> getOccupiedSeats(int id) {
         return Database.getOccupiedSeatsByCinema(id);
     }
 
-    public int bookSeat(int id, int screening, String reservationName, int seatId) {
-        if (!Database.checkSeatOccupied(id)) {
-            int seatReservationId =Database.bookSeat(screening, reservationName, seatId);
-            return seatReservationId;
+    public boolean bookSeat(int[] ids, int screening, String reservationName) {
+        for (int id:ids) {
+            if (Database.checkSeatOccupied(id)) {
+                return false;
+            }
         }
-        return -1;
+
+        for (int id:ids) {
+            int seatReservationId =Database.bookSeat(screening, reservationName, id);
+            if(seatReservationId == -1) {
+                return false;
+            }
+        }
+        return true;
+
+//        if (!Database.checkSeatOccupied(id)) {
+//            int seatReservationId =Database.bookSeat(screening, reservationName, seatId);
+//            return seatReservationId;
+//        }
+//        return -1;
     }
 
     public int getMovieCount() {return Database.getMovieCount(); }
