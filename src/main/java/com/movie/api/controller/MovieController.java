@@ -166,8 +166,8 @@ public class MovieController implements ErrorController {
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
     public Response bookATicket(@RequestBody Booking reservation) {
-        int seatAvailableId = cinemaService.bookSeat(reservation.getSeatId(),reservation.getScreeningId(),reservation.getName(),reservation.getSeatId());
-        if (seatAvailableId>=1) {
+        boolean seatAvailableId = cinemaService.bookSeat(reservation.getSeatId(),reservation.getScreeningId(),reservation.getName());
+        if (seatAvailableId) {
             return new Response.Builder(seatAvailableId).responseStatus(HttpStatus.CREATED).message("SUCCESS").build();
         }
         return new Response.Builder("").responseStatus(HttpStatus.CONFLICT).message("SEAT UNAVAILABLE").build();

@@ -421,7 +421,7 @@ public class Database {
         catch (Exception e) {
             //
         }
-        return 0;
+        return -1;
     }
 
     public static void deleteBooking(int id) {
