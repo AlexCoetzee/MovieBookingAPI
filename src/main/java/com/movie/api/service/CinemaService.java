@@ -75,6 +75,12 @@ public class CinemaService {
         return Database.getCinemaByMovieAndTheatre(movieId, theatreId);
     }
 
+    public ArrayList<HashMap<String, String>> getScreeningByMovie(int movieId) {
+        return Database.getScreeningByMovieId(movieId);
+    }
+
+
+
     public ArrayList<HashMap<String, String>> getOccupiedSeats(int id) {
         return Database.getOccupiedSeatsByCinema(id);
     }
