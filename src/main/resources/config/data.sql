@@ -129,7 +129,7 @@ INSERT INTO `screening` (`Id`, `movie`, `time`, `cinema`) VALUES (3, 1, '2019-08
 INSERT INTO `screening` (`Id`, `movie`, `time`, `cinema`) VALUES (4, 1, '2019-08-02 12:00:00', 601);
 INSERT INTO `screening` (`Id`, `movie`, `time`, `cinema`) VALUES (5, 1, '2019-08-02 16:00:00', 601);
 INSERT INTO `screening` (`Id`, `movie`, `time`, `cinema`) VALUES (6, 1, '2019-08-02 20:00:00', 601);
-INSERT INTO `screening` (`Id`, `movie`, `time`, `cinema`) VALUES (7 1, '2019-08-03 12:00:00', 601);
+INSERT INTO `screening` (`Id`, `movie`, `time`, `cinema`) VALUES (7, 1, '2019-08-03 12:00:00', 601);
 INSERT INTO `screening` (`Id`, `movie`, `time`, `cinema`) VALUES (8, 1, '2019-08-03 16:00:00', 601);
 INSERT INTO `screening` (`Id`, `movie`, `time`, `cinema`) VALUES (9, 1, '2019-08-03 20:00:00', 601);
 INSERT INTO `screening` (`Id`, `movie`, `time`, `cinema`) VALUES (10, 1, '2019-08-04 12:00:00', 601);
