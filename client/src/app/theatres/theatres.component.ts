@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { TheatreService } from "../services/theatre.service";
 import { Router } from "@angular/router";
+import { BookingService } from "../services/booking.service";
 
 @Component({
   selector: "app-theatres",
@@ -14,7 +15,8 @@ export class TheatresComponent implements OnInit {
 
   constructor(
     private theatreService: TheatreService,
-    private _router: Router
+    private _router: Router,
+    private bookingService: BookingService
   ) {}
 
   ngOnInit() {
@@ -42,6 +44,13 @@ export class TheatresComponent implements OnInit {
         movieId: movieId
       }
     });
-    // this._router.navigateByUrl();
+  }
+
+  setCinema(cinemaName) {
+    this.bookingService.updateBookingDetail("cinemaName", cinemaName);
+  }
+
+  setMovie(movieName) {
+    this.bookingService.updateBookingDetail("movieName", movieName);
   }
 }
