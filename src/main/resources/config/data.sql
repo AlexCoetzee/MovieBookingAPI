@@ -264,3 +264,8 @@ CREATE VIEW FindSeatsByCinema
 AS SELECT *
 FROM seat
 WHERE cinema = 601;
+
+CREATE VIEW vScreeningToday
+AS
+SELECT * FROM screening
+WHERE time > DATE("now") AND time < DATE("now", "+1 days")
