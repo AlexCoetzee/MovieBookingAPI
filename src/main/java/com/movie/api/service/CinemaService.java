@@ -79,7 +79,13 @@ public class CinemaService {
         return Database.getOccupiedSeatsByCinema(id);
     }
 
-    public int bookSeat(int id, int screening, String reservationName, int seatId) {
+    public int bookSeat(int[] ids, int screening, String reservationName, int seatId) {
+        for (int id:ids) {
+            if (Database.checkSeatOccupied(id)) {
+                return
+            }
+        }
+
         if (!Database.checkSeatOccupied(id)) {
             int seatReservationId =Database.bookSeat(screening, reservationName, seatId);
             return seatReservationId;
