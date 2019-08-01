@@ -90,6 +90,12 @@ export class SeatsComponent implements OnInit {
     }
   }
 
+  get getTotalCost() {
+    if (this.selectedSeats) {
+      return this.selectedSeats.length * 100;
+    }
+  }
+
   buildSeatsLayoutArray() {
     let count = 1;
     this.seatsLayout = [];

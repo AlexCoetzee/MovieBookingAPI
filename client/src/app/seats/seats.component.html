@@ -4,7 +4,7 @@
   <tr *ngFor="let row of seatsLayout; let i = index">
     <td *ngFor="let seat of seatsLayout[i]">
       <mat-icon
-        class="seat-icon"
+        class="seat-icon disable-selection"
         [ngClass]="{
           'empty-seat':
             !checkIfSeatIsOccupied(seat.Id) && !checkIfSeatIsSelected(seat.Id),
@@ -19,3 +19,8 @@
 </table>
 
 <p>Seats selected: {{ getTotalSelectedSeats }}</p>
+<p>Total cost: R{{ getTotalCost }}.00</p>
+
+<button mat-raised-button>
+  Confirm and Pay
+</button>

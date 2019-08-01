@@ -1,6 +1,10 @@
 .seat-layout {
-  padding-left: 32%;
-  padding-right: 35%;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+.disable-selection::selection {
+  background-color: transparent;
 }
 
 .seat-icon {
