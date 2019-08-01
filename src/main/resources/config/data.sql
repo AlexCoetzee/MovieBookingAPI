@@ -244,3 +244,8 @@ INSERT INTO `seat` (`Id`, `row`, `number`, `cinema`) VALUES (72, 5, 2, 603);
 INSERT INTO `seat` (`Id`, `row`, `number`, `cinema`) VALUES (73, 5, 3, 603);
 INSERT INTO `seat` (`Id`, `row`, `number`, `cinema`) VALUES (74, 5, 4, 603);
 INSERT INTO `seat` (`Id`, `row`, `number`, `cinema`) VALUES (75, 5, 5, 603);
+
+CREATE VIEW vScreeningToday 
+AS
+SELECT * FROM screening 
+WHERE time > DATE("now") AND time < DATE("now", "+1 days")
