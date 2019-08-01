@@ -87,4 +87,6 @@ public class CinemaService {
         return -1;
     }
 
+    public int getMovieCount() {return Database.getMovieCount(); }
+
 }

@@ -435,6 +435,26 @@ public class Database {
         }
     }
 
+    public static int getMovieCount() {
+        String sql = "SELECT COUNT (DISTINCT movieName) AS movieCount FROM movie";
+        // HashMap<String, String> resultSet = new HashMap<String, String>();
+
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            // loop through the result set
+            if(rs.next()) {
+                return rs.getInt("movieCount");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+
 
 
 }
