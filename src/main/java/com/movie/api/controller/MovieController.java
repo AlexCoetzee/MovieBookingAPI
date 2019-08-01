@@ -81,11 +81,26 @@ public class MovieController implements ErrorController {
     private Response getCinemaById(@PathVariable("cinemaId") String id) {
         return new Response.Builder(cinemaService.findCinemaById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
+
+    @RequestMapping(value = "cinemas/{cinemaId}/delete-cinema", method = RequestMethod.DELETE )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response deleteCinema(@PathVariable("cinemaId") String id) {
+        return new Response.Builder(cinemaService.deleteCinema(Integer.valueOf(id))).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
     @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}/cinema", method = RequestMethod.GET )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
     private Response getCinemaByMovieAndTheatre(@PathVariable("theatreId") int idTheatre, @PathVariable("movieId") int idMovie) {
         return new Response.Builder(cinemaService.getCinemaByMovieAndTheatre(idTheatre,idMovie)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
+    @RequestMapping(value = "theatres/{theatreId}/delete-theatre", method = RequestMethod.DELETE )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response deleteTheatre(@PathVariable("theatreId") String id) {
+        return new Response.Builder(cinemaService.deleteTheatre(Integer.valueOf(id))).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
     @RequestMapping(value = "cinemas/{cinemaId}/seats", method = RequestMethod.GET )
@@ -117,6 +132,13 @@ public class MovieController implements ErrorController {
         return new Response.Builder(cinemaService.findMovieById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
+    @RequestMapping(value = "movies/{movieId}/delete-movie", method = RequestMethod.DELETE )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response deleteMovie(@PathVariable("movieId") String id) {
+        return new Response.Builder(cinemaService.deleteMovie(Integer.valueOf(id))).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
     //RESERVATION CONTROLLER
     @RequestMapping(value = "reservations", method = RequestMethod.GET )
     @ResponseBody
@@ -132,7 +154,7 @@ public class MovieController implements ErrorController {
         return new Response.Builder(cinemaService.findReservationById(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
-    @RequestMapping(value = "reservations/{reservationId}/delete-booking", method = RequestMethod.GET )
+    @RequestMapping(value = "reservations/{reservationId}/delete-booking", method = RequestMethod.DELETE )
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:4200")
     private Response deleteBooking(@PathVariable("reservationId") String id) {
@@ -168,6 +190,13 @@ public class MovieController implements ErrorController {
         return new Response.Builder(cinemaService.findReservationByScreening(id)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
     }
 
+    @RequestMapping(value = "screenings/{screeningId}/delete-screening", method = RequestMethod.DELETE )
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:4200")
+    private Response deleteScreening(@PathVariable("screeningId") String id) {
+        return new Response.Builder(cinemaService.deleteScreening(Integer.valueOf(id))).responseStatus(HttpStatus.OK).message("SUCCESS").build();
+    }
+
 
     @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}/book-a-seat", method = RequestMethod.POST)
     @ResponseBody
@@ -180,66 +209,5 @@ public class MovieController implements ErrorController {
         return new Response.Builder("").responseStatus(HttpStatus.CONFLICT).message("SEAT UNAVAILABLE").build();
     }
 
-
-//    @RequestMapping(value = "theatres/{theatreId}/movies", method = RequestMethod.GET )
-//    @ResponseBody
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    private Response getAllMovies(@PathVariable("theatreId") int id) {
-//        return new Response.Builder(theatreService.findAllMovies(id)).responseStatus(HttpStatus.OK).message("Success").build();
-//    }
-
-//    @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}", method = RequestMethod.GET )
-//    @ResponseBody
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    private Response getMovieById(@PathVariable("theatreId") int theatreId, @PathVariable("movieId") int movieId) {
-//        return new Response.Builder(theatreService.findMovieById(theatreId, movieId)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
-//    }
-//
-//    @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}/seats", method = RequestMethod.GET )
-//    @ResponseBody
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    private Response getSeats(@PathVariable("theatreId") int theatreId, @PathVariable("movieId") int movieId) {
-//        return new Response.Builder(theatreService.findSeats(theatreId, movieId)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
-//    }
-//
-//    @RequestMapping(value = "theatres/{theatreId}/movies/{movieId}/book-a-seat", method = RequestMethod.POST)
-//    @ResponseBody
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    public Response bookATicket(@PathVariable("theatreId") int theatreId, @PathVariable("movieId") int movieId, @RequestBody Seat seat) {
-//        Booking booking = bookingService.bookASeat(theatreId, movieId, seat);
-//        if (booking != null) {
-//            return new Response.Builder(booking).responseStatus(HttpStatus.CREATED).message("SUCCESS").build();
-//        }
-//        return new Response.Builder("").responseStatus(HttpStatus.CONFLICT).message("SEAT UNAVAILABLE").build();
-//    }
-//
-//    @RequestMapping(value = "theatres/{theatreId}/pay-booking", method = RequestMethod.POST)
-//    @ResponseBody
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    public Response payForBooking(@PathVariable("theatreId") int theatreId, @RequestBody Payment paymentDetails) {
-//        boolean result = bookingService.payForBooking(theatreId, paymentDetails.getBookingID(), paymentDetails);
-//        if (result) {
-//            return new Response.Builder(paymentDetails).responseStatus(HttpStatus.CREATED).message("Payment was successful.  Booking Id : " + paymentDetails.getBookingID()).build();
-//        }
-//        return new Response.Builder(paymentDetails).responseStatus(HttpStatus.NOT_ACCEPTABLE).message("Payment not Accepted").build();
-//    }
-//
-//    @RequestMapping(value = "theatres/{theatreId}/bookings", method = RequestMethod.GET )
-//    @ResponseBody
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    private Response getAllBooking(@PathVariable("theatreId") int id) {
-//        return new Response.Builder(theatreService.findAllBookings(id)).responseStatus(HttpStatus.OK).message("Success").build();
-//    }
-//
-//    @RequestMapping(value = "theatres/{theatreId}/cancel-booking/{bookingId}", method = RequestMethod.GET)
-//    @ResponseBody
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    public Response deleteBooking(@PathVariable("theatreId") int theatreId, @PathVariable("bookingId") String bookingId) {
-//        boolean result = bookingService.deleteBooking(theatreId, bookingId);
-//        if (result) {
-//            return  new Response.Builder("").message("booking id " +bookingId+ " was removed successfully.").responseStatus(HttpStatus.OK).build();
-//        }
-//        return new Response.Builder("").responseStatus(HttpStatus.NOT_FOUND).message(notFound).build();
-//    }
 
 }

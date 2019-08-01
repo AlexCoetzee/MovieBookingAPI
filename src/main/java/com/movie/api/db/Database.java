@@ -260,12 +260,14 @@ public class Database {
         return -1;
     }
 
-    public static int insertReservation( int screening, String name) {
-        String sql = "INSERT INTO reservation(screening, name) VALUES(?,?)";
+    public static int insertReservation( int screening, String name , LocalDateTime timeCreated) {
+        String sql = "INSERT INTO reservation(screening, name,timeCreated) VALUES(?,?,?)";
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, screening);
             pstmt.setString(2, name);
+            pstmt.setString(3, timeCreated.toString());
+
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             if(rs.next()) {
@@ -315,15 +317,14 @@ public class Database {
         return -1;
     }
 
-    public static int insertSeatReservation(int seat, int reservation, int screening , LocalDateTime timeCreated) {
-        String sql = "INSERT INTO seat_reservation(seat, reservation, screening,timeCreated) VALUES(?,?,?,?)";
+    public static int insertSeatReservation(int seat, int reservation, int screening) {
+        String sql = "INSERT INTO seat_reservation(seat, reservation, screening) VALUES(?,?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, seat);
             pstmt.setInt(2, reservation);
             pstmt.setInt(3, screening);
-            pstmt.setString(4, timeCreated.toString());
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             if(rs.next()) {
@@ -503,7 +504,9 @@ public class Database {
     }
 
     public static ArrayList<HashMap<String, String>> getOccupiedSeatsByCinema(int id) {
-        String sql = "SELECT Id FROM seat WHERE cinema = " + id;
+
+        String sql3 ="SELECT cinema from screening WHERE Id = " + id;
+        String sql = "SELECT Id FROM seat WHERE cinema  IN (" + sql3 + ")";
         String sql2 = "SELECT * FROM seat_reservation WHERE seat IN(" + sql + ")";
         ArrayList<HashMap<String, String>> rows = new ArrayList<HashMap<String, String>>();
         // HashMap<String, String> resultSet = new HashMap<String, String>();
@@ -583,8 +586,8 @@ public class Database {
 
     public static int bookSeat(int screening,String name,int seatId) {
         try {
-            int reservationId = insertReservation(screening,name);
-            int seat_reservationId = insertSeatReservation(seatId,reservationId,screening,LocalDateTime.now());
+            int reservationId = insertReservation(screening,name, LocalDateTime.now());
+            int seat_reservationId = insertSeatReservation(seatId,reservationId,screening);
             return seat_reservationId;
 
         }
