@@ -1,0 +1,32 @@
+.seat-layout {
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+.disable-selection::selection {
+  background-color: transparent;
+}
+
+.seat-icon {
+  font-size: 4em;
+  margin-left: 1em;
+
+  cursor: pointer;
+}
+
+.seat-id {
+  margin-left: 12%;
+  cursor: pointer;
+}
+
+.empty-seat {
+  color: black;
+}
+
+.occupied-seat {
+  color: red;
+}
+
+.selected-seat {
+  color: blue;
+}
