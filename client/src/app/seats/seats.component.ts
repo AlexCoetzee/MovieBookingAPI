@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SeatModel } from "../models/seat.model";
 import { SeatReservationModel } from "../models/seatReservation.model";
 import { CinemaService } from "../services/cinema.service";
+import { BookingService } from "../services/booking.service";
 
 @Component({
   selector: "app-seats",
@@ -20,11 +21,15 @@ export class SeatsComponent implements OnInit {
   occupiedSeats: Array<SeatReservationModel>;
   selectedSeats: Array<SeatModel>;
 
+  rowLetters: Array<String> = ["A", "B", "C", "D", "E"];
+
   seatsLayout: Array<Array<SeatModel>>;
 
   constructor(
     private cinemaService: CinemaService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private bookingService: BookingService
   ) {}
 
   ngOnInit() {
@@ -144,6 +149,22 @@ export class SeatsComponent implements OnInit {
       if (!this.checkIfSeatIsOccupied(seat.Id)) {
         this.selectedSeats.push(seat);
       }
+    }
+  }
+
+  confirmPay() {
+    this.router.navigate(["/confirm"]);
+  }
+
+  setSeatingDetails() {
+    debugger;
+    for (let i = 0; i < this.selectedSeats.length; i++) {
+      let row = this.selectedSeats[i].row;
+      let seatRowLetter = this.rowLetters[row - 1];
+      let seatPosition =
+        seatRowLetter + this.selectedSeats[i].number.toString();
+
+      this.bookingService.updateBookingDetail("seats", seatPosition);
     }
   }
 }
