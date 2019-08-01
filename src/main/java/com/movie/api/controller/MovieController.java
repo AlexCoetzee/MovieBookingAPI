@@ -183,14 +183,7 @@ public class MovieController implements ErrorController {
         return new Response.Builder("").responseStatus(HttpStatus.CONFLICT).message("SEAT UNAVAILABLE").build();
     }
 
-
-
 }
 
-//    @RequestMapping(value = "screenings/{time}", method = RequestMethod.GET )
-//    @ResponseBody
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    private Response getReservationsByScreening(@PathVariable("time") Date date) {
-//        return new Response.Builder(cinemaService.getScreeningByTime(date)).responseStatus(HttpStatus.OK).message("SUCCESS").build();
-//    }
+
 
