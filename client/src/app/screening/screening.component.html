@@ -7,11 +7,7 @@
       mat-raised-button
       color="primary"
       *ngFor="let time of screen.value"
-      (click)="
-        test(time, screen.key);
-        setMovieTime(time.time);
-        setMovieDate(screen.key)
-      "
+      (click)="test(time.id); setMovieDateTime(screen.key, time.time)"
     >
       {{ time.time }}
     </button>

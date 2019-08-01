@@ -9,10 +9,10 @@ import { BookingService } from "../services/booking.service";
   templateUrl: "./screening.component.html",
   styleUrls: ["./screening.component.scss"]
 })
-
 export class ScreeningComponent implements OnInit {
   theatreId: number;
   movieId: number;
+  screeningId: number;
   screening = new Map<Date, Array<mappedScreening>>();
   date: Date;
 
@@ -27,20 +27,26 @@ export class ScreeningComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.theatreId = params["id"];
       this.movieId = params["movieId"];
+      this.screeningId = params["screeningId"];
       this.screeningService.test(this.movieId).subscribe(data => {
         data.responseBody.forEach(test => {
-
           console.log(test);
           if (this.screening.has(test.time.split(" ")[0])) {
             let blet = this.screening.get(test.time.split(" ")[0]);
-            let newMappedScreening = {time: test.time.split(" ")[1], id: test.Id};
+            let newMappedScreening = {
+              time: test.time.split(" ")[1],
+              id: test.Id
+            };
             blet.push(newMappedScreening);
-            this.screening.set(test.time.split(" ")[0],blet);
+            this.screening.set(test.time.split(" ")[0], blet);
           } else {
             let arr = new Array<mappedScreening>();
-            let newMappedScreening = {time: test.time.split(" ")[1], id: test.Id};
+            let newMappedScreening = {
+              time: test.time.split(" ")[1],
+              id: test.Id
+            };
             arr.push(newMappedScreening);
-            this.screening.set(test.time.split(" ")[0],arr);
+            this.screening.set(test.time.split(" ")[0], arr);
           }
         });
         console.log(this.screening);
@@ -58,16 +64,14 @@ export class ScreeningComponent implements OnInit {
     });
   }
 
-  setMovieDate(date) {
-    this.bookingService.updateBookingDetail("movieDate", date);
-  }
-
-  setMovieTime(time) {
+  setMovieDateTime(date, time) {
     this.bookingService.updateBookingDetail("movieTime", time);
+    this.bookingService.updateBookingDetail("movieDate", date);
+    this.bookingService.updateBookingDetail("screeningId", this.screeningId);
   }
 }
 
 export interface mappedScreening {
-  time : Time;
-  id : number;
+  time: Time;
+  id: number;
 }

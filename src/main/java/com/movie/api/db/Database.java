@@ -366,7 +366,9 @@ public class Database {
 
         String sql3 ="SELECT cinema from screening WHERE Id = " + id;
         String sql = "SELECT Id FROM seat WHERE cinema  IN (" + sql3 + ")";
-        String sql2 = "SELECT * FROM seat_reservation WHERE seat IN(" + sql + ")";
+        String sql2 = "SELECT * FROM seat_reservation WHERE seat IN(" + sql + ") AND screening = " + id;
+
+
         ArrayList<HashMap<String, String>> rows = new ArrayList<HashMap<String, String>>();
         // HashMap<String, String> resultSet = new HashMap<String, String>();
 

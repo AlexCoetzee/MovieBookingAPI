@@ -23,9 +23,9 @@ export class CinemaService {
       "http://localhost:8080/cinemas/" + cinemaId + "/seats"
     );
   }
-  getOccupiedSeatByCinema(cinemaId: Number): Observable<any> {
+  getOccupiedSeatByCinema(screeningId: Number): Observable<any> {
     return this.http.get(
-      "http://localhost:8080/cinemas/" + cinemaId + "/occupiedSeats"
+      "http://localhost:8080/cinemas/" + screeningId + "/occupiedSeats"
     );
   }
 }

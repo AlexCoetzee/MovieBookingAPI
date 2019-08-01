@@ -15,12 +15,15 @@ export class SeatsComponent implements OnInit {
   cinema: Array<any>;
   movieId: number;
   theatreId: number;
+  screeningId: number;
 
   allSeats: Array<SeatModel>;
   seats: Array<SeatModel>;
   availableSeats: Array<SeatModel>;
   occupiedSeats: Array<SeatReservationModel>;
   selectedSeats: Array<SeatModel>;
+  seatIds: Array<number>;
+  name: string;
 
   rowLetters: Array<String> = ["A", "B", "C", "D", "E"];
 
@@ -36,10 +39,11 @@ export class SeatsComponent implements OnInit {
 
   ngOnInit() {
     this.selectedSeats = [];
-
+    this.seatIds = [];
     this.route.queryParams.subscribe(params => {
       this.theatreId = params["id"];
       this.movieId = params["movieId"];
+      this.screeningId = params["screeningId"];
       this.availableSeats = new Array<SeatModel>();
       this.findSeats();
     });
@@ -57,25 +61,29 @@ export class SeatsComponent implements OnInit {
             this.allSeats = data.responseBody;
 
             this.buildSeatsLayoutArray();
-          });
 
-        this.cinemaService
-          .getOccupiedSeatByCinema(this.cinema[0].cinema)
-          .subscribe(data => {
-            this.occupiedSeats = data.responseBody;
-
-            this.allSeats.forEach(a => {
-              let isInArray = false;
-              this.occupiedSeats.forEach(b => {
-                if (a.Id === b.seat) {
-                  isInArray = true;
-                }
-              });
-              if (!isInArray) {
-                this.availableSeats.push(a);
-              }
-            });
+            this.setSeats();
           });
+      });
+  }
+
+  setSeats() {
+    this.cinemaService
+      .getOccupiedSeatByCinema(this.screeningId)
+      .subscribe(data => {
+        this.occupiedSeats = data.responseBody;
+
+        this.allSeats.forEach(a => {
+          let isInArray = false;
+          this.occupiedSeats.forEach(b => {
+            if (a.Id === b.seat) {
+              isInArray = true;
+            }
+          });
+          if (!isInArray) {
+            this.availableSeats.push(a);
+          }
+        });
       });
   }
 
@@ -155,13 +163,30 @@ export class SeatsComponent implements OnInit {
   }
 
   confirmPay() {
-    if (this.selectedSeats.length > 0) {
+    this.setSeatingDetails();
+
+    this.name = "default";
+    if (this.selectedSeats.length > 0 && this.name && this.name !== "") {
+      console.log(this.bookingService.getBookingDetail("theatreId"));
+      console.log(this.movieId);
+      console.log(this.seatIds);
+      console.log(this.screeningId);
+
+      this.bookingService.makeBooking(
+        this.bookingService.getBookingDetail("theatreId"),
+        this.movieId,
+        this.seatIds,
+        this.screeningId,
+        this.name
+      );
+
       this.router.navigate(["/confirm"]);
-    } else {
+    } else if (this.selectedSeats.length < 0) {
       this.snackBar.open("Please select at least one seat", null, {
         duration: 2000,
         panelClass: ["alert-red"]
       });
+    } else {
     }
   }
 
@@ -171,7 +196,7 @@ export class SeatsComponent implements OnInit {
       let seatRowLetter = this.rowLetters[row - 1];
       let seatPosition =
         seatRowLetter + this.selectedSeats[i].number.toString();
-
+      this.seatIds.push(this.selectedSeats[i].Id);
       this.bookingService.updateBookingDetail("seats", seatPosition);
     }
   }
