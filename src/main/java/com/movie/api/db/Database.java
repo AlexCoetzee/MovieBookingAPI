@@ -1,7 +1,8 @@
 package com.movie.api.db;
 
 import lombok.Getter;
-
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,10 +40,10 @@ public class Database {
 
     public static void createTables() {
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS movie (Id Integer PRIMARY KEY, movieName varchar(50) NOT NULL, movieDescription varchar(100) )";
+        String sql = "CREATE TABLE IF NOT EXISTS movie (Id Integer PRIMARY KEY, movieName varchar(50) NOT NULL, movieDescription varchar(100) , genre varchar(100))";
         String sql2 = "CREATE TABLE IF NOT EXISTS cinema (Id Integer PRIMARY KEY, name varchar(50) NOT NULL, seatCount Integer NOT NULL, theatre Integer NOT NULL, FOREIGN KEY(theatre) REFERENCES theatre(Id)  )";
         String sql3 = "CREATE TABLE IF NOT EXISTS screening (Id Integer PRIMARY KEY, movie Integer NOT NULL, time TimeStamp NOT NULL, cinema Integer, FOREIGN KEY(movie) REFERENCES movie(Id), FOREIGN KEY(cinema) REFERENCES cinema(Id))";
-        String sql4 = "CREATE TABLE IF NOT EXISTS reservation (Id Integer PRIMARY KEY, screening Integer NOT NULL, name varchar(50), FOREIGN KEY(screening) REFERENCES screening(Id) )";
+        String sql4 = "CREATE TABLE IF NOT EXISTS reservation (Id Integer PRIMARY KEY, screening Integer NOT NULL, name varchar(50), timeCreated VARCHAR(100), FOREIGN KEY(screening) REFERENCES screening(Id) )";
         String sql5 = "CREATE TABLE IF NOT EXISTS seat_reservation (Id Integer PRIMARY KEY, seat Integer NOT NULL, reservation Integer NOT NULL, screening Integer NOT NULL, FOREIGN KEY(seat) REFERENCES seat(Id), FOREIGN KEY(reservation) REFERENCES reservation(Id), FOREIGN KEY(screening) REFERENCES screening(Id) )";
         String sql6 = "CREATE TABLE IF NOT EXISTS seat (Id Integer PRIMARY KEY, row Integer NOT NULL, number Integer NOT NULL, cinema Integer NOT NULL, FOREIGN KEY(cinema) REFERENCES cinema(Id) )";
         String sql7 = "CREATE TABLE IF NOT EXISTS theatre (Id Integer PRIMARY KEY, name varchar(50) NOT NULL, Location varchar(100) NOT NULL)";
@@ -62,13 +63,14 @@ public class Database {
         }
     }
 
-    public static int insertMovie(String name, String description) {
-        String sql = "INSERT INTO movie(movieName,movieDescription) VALUES(?,?)";
+    public static int insertMovie(String name, String description ,String movieGenre) {
+        String sql = "INSERT INTO movie(movieName,movieDescription,genre) VALUES(?,?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, name);
             pstmt.setString(2, description);
+            pstmt.setString(3, movieGenre);
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             if(rs.next()) {
@@ -172,14 +174,15 @@ public class Database {
         return -1;
     }
 
-    public static int insertSeatReservation(int seat, int reservation, int screening) {
-        String sql = "INSERT INTO seat_reservation(seat, reservation, screening) VALUES(?,?,?)";
+    public static int insertSeatReservation(int seat, int reservation, int screening , LocalDateTime timeCreated) {
+        String sql = "INSERT INTO seat_reservation(seat, reservation, screening,timeCreated) VALUES(?,?,?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, seat);
             pstmt.setInt(2, reservation);
             pstmt.setInt(3, screening);
+            pstmt.setString(4, timeCreated.toString());
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             if(rs.next()) {
@@ -414,7 +417,7 @@ public class Database {
     public static int bookSeat(int screening,String name,int seatId) {
         try {
             int reservationId = insertReservation(screening,name);
-            int seat_reservationId = insertSeatReservation(seatId,reservationId,screening);
+            int seat_reservationId = insertSeatReservation(seatId,reservationId,screening,LocalDateTime.now());
             return seat_reservationId;
 
         }

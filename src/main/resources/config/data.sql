@@ -1,25 +1,25 @@
 
-INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (1, 'dolores', '328 Andres Walk\nCordietown, UT 55804');
-INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (2, 'delectus', '032 Blanda Forges Suite 782\nLake Ledaton, GA 88630');
-INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (3, 'eaque', '54565 Gleichner Corner\nNorth Mathew, OH 73199');
-INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (4, 'ea', '644 Laurianne Flats Apt. 045\nPort Eveberg, OK 42391-2790');
-INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (5, 'distinctio', '1455 Olson Stream Suite 958\nWeissnatburgh, OR 45124');
-INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (6, 'earum', '614 Emile Street\nPort Emmy, AR 25796-4172');
-INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (7, 'similique', '9448 Adrianna Fort\nRowenatown, CT 74511-0666');
-INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (8, 'officiis', '6641 Corine Crest\nNew Angela, MD 68450');
-INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (9, 'aliquam', '17432 Sierra Manors Apt. 602\nNew Aubreyberg, AZ 21509-4822');
-INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (10, 'dolor', '73301 Alfreda Land Apt. 889\nNorth Rigoberto, TN 04082-5944');
+INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (1, 'IO', 'Orbiting Jupiter');
+INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (2, 'The Sun', 'Just look up');
+INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (3, 'Eastgate', 'Google It');
+INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (4, 'Mikes House', 'Ask Mike');
+INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (5, 'Hogwarts', 'Somewhere in England');
+INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (6, 'WinterFell', 'Gone but never forgotten');
+INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (7, 'Deathstar', 'Currently Under Construction');
+INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (8, 'Narnia', 'Open your coat closet');
+INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (9, 'Cybertron', '?');
+INSERT INTO `theatre` (`Id`, `name`, `Location`) VALUES (10, 'Mordor', 'Far Far away');
 
-INSERT INTO `movie` (`Id`, `movieName`, `movieDescription`) VALUES (1, 'sit', 'Et adipisci rerum dicta quibusdam consequuntur enim.');
-INSERT INTO `movie` (`Id`, `movieName`, `movieDescription`) VALUES (2, 'commodi', 'Nostrum sed voluptates dolor dolor.');
-INSERT INTO `movie` (`Id`, `movieName`, `movieDescription`) VALUES (3, 'tempore', 'At velit eaque illo fuga.');
-INSERT INTO `movie` (`Id`, `movieName`, `movieDescription`) VALUES (4, 'consequuntur', 'Sed ut ut dolorem aspernatur exercitationem eaque neque.');
-INSERT INTO `movie` (`Id`, `movieName`, `movieDescription`) VALUES (5, 'cumque', 'Voluptate ex aut quae occaecati quae dolorem.');
-INSERT INTO `movie` (`Id`, `movieName`, `movieDescription`) VALUES (6, 'sint', 'Dolore aliquam aspernatur nostrum autem repudiandae autem.');
-INSERT INTO `movie` (`Id`, `movieName`, `movieDescription`) VALUES (7, 'qui', 'Sed voluptatem facere omnis doloribus dolorum expedita.');
-INSERT INTO `movie` (`Id`, `movieName`, `movieDescription`) VALUES (8, 'quas', 'Tempore omnis laboriosam soluta et facere.');
-INSERT INTO `movie` (`Id`, `movieName`, `movieDescription`) VALUES (9, 'earum', 'Possimus tempora magnam et voluptatibus.');
-INSERT INTO `movie` (`Id`, `movieName`, `movieDescription`) VALUES (10, 'et', 'Quidem voluptatem architecto illum veniam.');
+INSERT INTO `movie` (`Id`, `movieName`, `movieDescription` , `genre`) VALUES (1, 'Avengers End Game', 'Greatest movie ever.','SuperHero');
+INSERT INTO `movie` (`Id`, `movieName`, `movieDescription` , `genre`) VALUES (2, 'Spider-Man Far From Home', 'Your Friendly Neighbourhood hero','SuperHero');
+INSERT INTO `movie` (`Id`, `movieName`, `movieDescription` , `genre`) VALUES (3, 'Hobbs and Shaw', 'Another Fast and Furious Movie','action');
+INSERT INTO `movie` (`Id`, `movieName`, `movieDescription` , `genre`) VALUES (4, 'John Wick 3', 'Shooting , lots of Shooting','action');
+INSERT INTO `movie` (`Id`, `movieName`, `movieDescription` , `genre`) VALUES (5, 'Anna', 'I am unsure what this movie is about','action');
+INSERT INTO `movie` (`Id`, `movieName`, `movieDescription` , `genre`) VALUES (6, 'MIB International', 'Aliens , guns and half the cast of Thor Ragnarok','action');
+INSERT INTO `movie` (`Id`, `movieName`, `movieDescription` , `genre`) VALUES (7, 'Crawl', 'Aligators and a Hurricane , sounds like Sharknado','Horror');
+INSERT INTO `movie` (`Id`, `movieName`, `movieDescription` , `genre`) VALUES (8, 'Childs Play', 'Chucky 2.0','Horror');
+INSERT INTO `movie` (`Id`, `movieName`, `movieDescription` , `genre`) VALUES (9, 'Annabelle Comes Home', 'Chucky 3.0','Horror');
+INSERT INTO `movie` (`Id`, `movieName`, `movieDescription` , `genre`) VALUES (10,'Lion King', 'This Years most anticipated horror movie about vicious Lions','Horror');
 
 INSERT INTO `cinema` (`Id`, `name`, `seatCount`, `theatre`) VALUES (601, 'rerum', 25, 1);
 INSERT INTO `cinema` (`Id`, `name`, `seatCount`, `theatre`) VALUES (602, 'veritatis', 25, 1);
@@ -244,3 +244,28 @@ INSERT INTO `seat` (`Id`, `row`, `number`, `cinema`) VALUES (72, 5, 2, 603);
 INSERT INTO `seat` (`Id`, `row`, `number`, `cinema`) VALUES (73, 5, 3, 603);
 INSERT INTO `seat` (`Id`, `row`, `number`, `cinema`) VALUES (74, 5, 4, 603);
 INSERT INTO `seat` (`Id`, `row`, `number`, `cinema`) VALUES (75, 5, 5, 603);
+
+CREATE VIEW MoviesByGenreHorror
+AS SELECT Id, movieName, movieDescription , genre
+FROM movie
+WHERE genre = 'Horror' ;
+
+CREATE VIEW MoviesByGenreAction
+AS SELECT Id, movieName, movieDescription , genre
+FROM movie
+WHERE genre = 'action' ;
+
+CREATE VIEW MoviesByGenreSuperHero
+AS SELECT Id, movieName, movieDescription , genre
+FROM movie
+WHERE genre = 'SuperHero' ;
+
+CREATE VIEW FindSeatsByCinema
+AS SELECT *
+FROM seat
+WHERE cinema = 601;
+
+CREATE VIEW vScreeningToday
+AS
+SELECT * FROM screening
+WHERE time > DATE("now") AND time < DATE("now", "+1 days")
