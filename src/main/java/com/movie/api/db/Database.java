@@ -83,7 +83,7 @@ public class Database {
         return -1;
     }
 
-    public static int updateCinemaById(String name, int seatCount, int theatre ) {
+    public static int updateCinemaById(String name, int seatCount, int theatre, int id) {
         String sql = "UPDATE cinema SET name = ?, seatCount = ?, theatre = ? WHERE id = ?";
 
         try (Connection conn = connect();
