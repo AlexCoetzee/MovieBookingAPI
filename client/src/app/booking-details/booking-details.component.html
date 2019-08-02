@@ -7,10 +7,13 @@
 <h4 *ngIf="theatre">
   Theatre: <span class="info">{{ theatre }}</span>
 </h4>
+<h4 *ngIf="date">
+  Date: <span class="info">{{ date }}</span>
+</h4>
 <h4 *ngIf="time">
   Time: <span class="info">{{ time }}</span>
 </h4>
-<h4 *ngIf="seats.length > 0">
+<h4 *ngIf="seats?.length > 0">
   Seats:
   <span *ngFor="let seat of seats" class="info">{{ seat }} </span>
 </h4>

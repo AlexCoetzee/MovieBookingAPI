@@ -16,6 +16,7 @@ import { PayConfirmationComponent } from "./pay-confirmation/pay-confirmation.co
 import { BookingDetailsComponent } from "./booking-details/booking-details.component";
 import { ScreeningComponent } from "./screening/screening.component";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSnackBarModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -20,13 +20,17 @@
 }
 
 .empty-seat {
-  color: black;
+  color: white;
 }
 
 .occupied-seat {
-  color: red;
+  color: black;
 }
 
 .selected-seat {
-  color: blue;
+  color: rgb(197, 0, 197);
+}
+
+.confirm-pay-button{
+  margin-top: 1em;
 }

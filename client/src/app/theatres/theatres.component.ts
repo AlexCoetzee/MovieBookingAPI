@@ -46,11 +46,13 @@ export class TheatresComponent implements OnInit {
     });
   }
 
-  setCinema(cinemaName) {
-    this.bookingService.updateBookingDetail("cinemaName", cinemaName);
+  setCinema(cinemaName, cinemaId) {
+    this.bookingService.updateBookingDetail("theatreName", cinemaName);
+    this.bookingService.updateBookingDetail("theatreId", cinemaId);
   }
 
-  setMovie(movieName) {
+  setMovie(movieName, movieId) {
     this.bookingService.updateBookingDetail("movieName", movieName);
+    this.bookingService.updateBookingDetail("movieId", movieId);
   }
 }

@@ -7,7 +7,7 @@
       <mat-option
         *ngFor="let theatre of theatres"
         [value]="theatre.Id"
-        (click)="setCinema(theatre.name)"
+        (click)="setCinema(theatre.name, theatre.Id)"
       >
         {{ theatre.name }}
       </mat-option>
@@ -38,7 +38,9 @@
       <div class="star">
         <button
           mat-raised-button
-          (click)="chooseScreening(movies.Id); setMovie(movies.movieName)"
+          (click)="
+            chooseScreening(movies.Id); setMovie(movies.movieName, movies.Id)
+          "
         >
           Book Now
         </button>

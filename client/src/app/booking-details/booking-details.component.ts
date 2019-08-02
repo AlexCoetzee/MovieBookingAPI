@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { BookingService } from "../services/booking.service";
 
 @Component({
@@ -12,9 +12,10 @@ export class BookingDetailsComponent implements OnInit {
   movie: string;
   cinema: string;
   theatre: string;
+  date: string;
   time: string;
-  seats: Array<String>;
-  seatNumber: Number;
+  seats: Array<string>;
+  seatNumber: number;
   ngOnInit() {
     this.getAvailableBookingDetails();
   }
@@ -23,6 +24,7 @@ export class BookingDetailsComponent implements OnInit {
     this.cinema = this.bookingService.getBookingDetail("cinemaName");
     this.movie = this.bookingService.getBookingDetail("movieName");
     this.theatre = this.bookingService.getBookingDetail("theatreName");
+    this.date = this.bookingService.getBookingDetail("movieDate");
     this.time = this.bookingService.getBookingDetail("movieTime");
     this.seats = this.bookingService.getBookingDetail("seats");
   }
